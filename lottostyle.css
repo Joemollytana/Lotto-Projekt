@@ -1,3 +1,7 @@
+body {
+  margin: auto;
+}
+
 .btn {
   border: none;
   outline: none;
@@ -33,7 +37,7 @@ main {
 
 header {
   text-align: center;
-    
+  /*background-color: white;*/
 }
 
 h1 {
