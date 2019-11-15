@@ -1,0 +1,90 @@
+<html>
+
+<head>
+    <title>Auswertung</title>
+    <link rel="stylesheet" href="lottostyle.css">
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+        google.charts.load('current', { 'packages': ['corechart'] });
+        google.charts.setOnLoadCallback(drawChart);
+        function drawChart() {
+            var data = new google.visualization.DataTable();
+            data.addColum('string', 'Land');
+            data.addColum('number', 'Gewinne');
+            data.addRows([
+                ['Deutschland', 1],
+                ['Deutschland', 1],
+                ['Deutschland', 1],
+                ['Deutschland', 1],
+                ['Deutschland', 1],
+
+            ]);
+
+            var options = {
+                'title': 'Graphische Auswertung der Würfe:',
+                'width': 500,
+                'height': 400
+            };
+            var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
+            chart.draw(data, options);
+        }
+    </script>
+</head>
+<header>
+    <h1>Ergebnisse der Lottoziehung:</h1>
+    <div>
+        <input type="button" value="Zurück zur Lottoziehung" onclick="location.href='lotto.html'">
+
+    </div>
+</header>
+
+<br>
+
+<body id="result">
+
+    <main id=main>
+        <div class="tab">
+            <button class="tablinks" onclick="openTab(event, 'Statistik')" id="defaultOpen">Statistische
+                Auswertung</button>
+            <button class="tablinks" onclick="openTab(event, 'Daten')">Meine Daten</button>
+            <button class="tablinks" onclick="openTab(event, 'Graph')">Graphische Auswertung</button>
+
+        </div>
+
+        <div id="Daten" class="tabcontent">
+            <h3>Deine Daten</h3>
+            <p>-Lottozahlen</p>
+            <p>-Land</p>
+            <p>-Wie oft ausgewählt</p>
+
+        </div>
+
+        <div id="Graph" class="tabcontent">
+            <h3>Grapische Auswertung</h3>
+            <p>Graph einbauen</p>
+            <div id="chart_div"></div>
+            
+
+        </div>
+
+        <div id="Statistik" class="tabcontent">
+            <h3>Statistische Auswertung</h3>
+            <p>Zahlen</p>
+        </div>
+
+
+    </main>
+</body>
+<footer>
+    <div>
+        Trotz sorgfältiger inhaltlicher Kontrolle übernimmt die Lotto-DHBW-VS keine Haftung für die Inhalte
+        externer Links. Für den Inhalt der verlinkten Seiten sind ausschließlich deren Betreiber verantwortlich.
+        Es werden keine Zusicherungen abgegeben und keinerlei Gewährleistung und Haftung für die Richtigkeit der
+        bereitgestellten Informationen übernommen. Spielen mit Verantwortung. Spielteilnahme ab 18 Jahren. Glücksspiel
+        kann süchtig machen. Mehr Infos unter: www.spielen-mit-verantwortung.de
+    </div>
+</footer>
+<script src="lottoscript.js"></script>
+<script> document.getElementById("defaultOpen").click()</script>
+
+</html>

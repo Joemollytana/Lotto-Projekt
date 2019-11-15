@@ -1,0 +1,124 @@
+<html lang="de">
+
+<head>
+    <meta charset="utf-8">
+    <title>Lotto_Seite</title>
+
+    <link rel="stylesheet" type="text/css" href="lottostyle.css">
+
+
+</head>
+
+<header>
+    <h1>Dein Lotto zum Glück!</h1>
+    <input type="button" onclick="openNav()" value="Regelwerk">
+    <div id="mySidenav" class="sidenav" style="width: 0px;">
+        <a src="lottoscript.js" class="closebtn" onclick="closeNav()">&times;</a>
+        <a href="https://de.wikipedia.org/wiki/Lotto#6_aus_49_in_Deutschland">Deutschland</a>
+        <a href="https://de.wikipedia.org/wiki/Lotto#6_aus_45_in_Österreich">Belgien</a>
+        <a href="https://www.euro-jackpot.net/daenisches-lotto">Dänemark</a>
+        <a href="https://en.wikipedia.org/wiki/Powerball#Playing_the_game">USA</a>
+        <a href="https://de.wikipedia.org/wiki/Lotto#6_aus_90_in_Italien">Italien</a>
+    </div>
+
+</header>
+<br>
+
+<body id="mainpage">
+    <main id="main">
+        <form method="POST" action="Auswertung.html">
+            <div id="buttons">
+                <input type="button" class="btn active" value="Deutschland" onclick="showStuff('de')">
+                <input type="button" class="btn" value="Belgien" onclick="showStuff('be')">
+                <input type="button" class="btn" value="Dänemark" onclick="showStuff('dä')">
+                <input type="button" class="btn" value="USA" onclick="showStuff('us')">
+                <input type="button" class="btn" value="Italien" onclick="showStuff('it')">
+                
+            </div>
+            <div id="de" class="numbers">
+                <h2>Trage eine Zahl ein von 0 bis 49</h2>
+                <input type="number" min="0" max="49" class="lottonumb">&emsp;
+                <input type="number" min="0" max="49" class="lottonumb">&emsp;
+                <input type="number" min="0" max="49" class="lottonumb">&emsp;
+                <br>
+                <input type="number" min="0" max="49" class="lottonumb">&emsp;
+                <input type="number" min="0" max="49" class="lottonumb">&emsp;
+                <input type="number" min="0" max="49" class="lottonumb">&emsp;
+
+            </div>
+
+            <div id="be" class="numbers" style="display: none;">
+                <h2>Trage eine Zahl ein von 0 bis 45</h2>
+                <input type="number" min="0" max="45" class="lottonumb">&emsp;
+                <input type="number" min="0" max="45" class="lottonumb">&emsp;
+                <input type="number" min="0" max="45" class="lottonumb">&emsp;
+                <br>
+                <input type="number" min="0" max="45" class="lottonumb">&emsp;
+                <input type="number" min="0" max="45" class="lottonumb">&emsp;
+                <input type="number" min="0" max="45" class="lottonumb">&emsp;
+
+
+            </div>
+
+            <div id="dä" class="numbers" style="display: none;">
+                <h2>Trage eine Zahl ein von 0 bis 36</h2>
+                <input type="number" min="0" max="36" class="lottonumb">&emsp;
+                <input type="number" min="0" max="36" class="lottonumb">&emsp;
+                <input type="number" min="0" max="36" class="lottonumb">&emsp;
+                <br>
+                <input type="number" min="0" max="36" class="lottonumb">&emsp;
+                <input type="number" min="0" max="36" class="lottonumb">&emsp;
+                <input type="number" min="0" max="36" class="lottonumb">&emsp;
+                <br>
+                <input type="number" min="0" max="36" class="lottonumb">&emsp;
+            </div>
+
+            <div id="us" class="numbers" style="display: none;">
+                <h2>Trage eine Zahl ein von 0 bis 69</h2>
+                <input type="number" min="0" max="69" class="lottonumb">&emsp;
+                <input type="number" min="0" max="69" class="lottonumb">&emsp;
+                <input type="number" min="0" max="69" class="lottonumb">&emsp;
+                <br>
+                <input type="number" min="0" max="69" class="lottonumb">&emsp;
+                <input type="number" min="0" max="69" class="lottonumb">&emsp;
+            </div>
+
+            <div id="it" class="numbers" style="display: none;">
+                <h2>Trage eine Zahl ein von 0 bis 90</h2>
+                <input type="number" min="0" max="90" class="lottonumb">&emsp;
+                <input type="number" min="0" max="90" class="lottonumb">&emsp;
+                <input type="number" min="0" max="90" class="lottonumb">&emsp;
+                <br>
+                <input type="number" min="0" max="90" class="lottonumb">&emsp;
+                <input type="number" min="0" max="90" class="lottonumb">&emsp;
+                <input type="number" min="0" max="90" class="lottonumb">&emsp;
+            </div>
+
+            <br>
+            <div>
+                <h2>Wie viele Lottoziehungen?</h2>
+                <div class="slidecontainer">
+                <input type="range" name="Ziehungen" class="slider" id="count" min="1" max="1000" step="1" value="1">
+                <p>Wert: <span id="countwert"></span></p>
+                </div>
+            </div>
+            <div id="Senden">
+                <br>
+                <input type="submit" id="Senden" value="Senden">
+            </div>
+        </form>
+    </main>
+</body>
+<footer>
+    <div>
+        Trotz sorgfältiger inhaltlicher Kontrolle übernimmt die Lotto-DHBW-VS keine Haftung für die Inhalte
+        externer Links. Für den Inhalt der verlinkten Seiten sind ausschließlich deren Betreiber verantwortlich.
+        Es werden keine Zusicherungen abgegeben und keinerlei Gewährleistung und Haftung für die Richtigkeit der
+        bereitgestellten Informationen übernommen. Spielen mit Verantwortung. Spielteilnahme ab 18 Jahren. Glücksspiel
+        kann süchtig machen. Mehr Infos unter: www.spielen-mit-verantwortung.de
+    </div>
+</footer>
+<script src="lottoscript.js"></script>
+
+
+</html>
