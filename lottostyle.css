@@ -2,7 +2,7 @@ body {
   margin: auto;
 }
 /* settings for buttons and hover function */
-.btn {
+.countryBtn {
   border: none;
   outline: none;
   padding: 10px 16px;
@@ -11,7 +11,7 @@ body {
   transition: 0.5s;
 }
 
-.active, .btn:hover {
+.active, .countryBtn:hover {
   background-color: red;
   color: white
 }
