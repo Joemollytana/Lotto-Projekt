@@ -2,7 +2,7 @@
 var btnContainer = document.getElementById("buttons");
 
 // Get all buttons with class="btn" inside the container
-var btns = btnContainer.getElementsByClassName("btn");
+var btns = btnContainer.getElementsByClassName("countryBtn");
 
 // Loop through the buttons and add the active class to the current/clicked button
 for (var i = 0; i < btns.length; i++) {
@@ -24,6 +24,31 @@ function showStuff(x) {
     for (i = 0; i < lottoNumbcontainer.length; i++) {
         lottoNumbcontainer[i].style.display = "none";
     }
+  // idea is to generate the buttons when needed. Maybe generate them beforehand and only show if nessesary?
+
+
+  //  if (x == de)  {
+  //    var generate = 49;
+  //  } else if (x == be) {
+  //    var generate = 45;
+  //  } else if (x == dä) {
+  //    var generate = 36;
+  //  } else if (x == us) {
+  //    var generate = 69;
+  //  } else if (x == it) {
+  //    var generate = 90;
+  //  } else {
+  //    var generate = 0;
+  //  }
+
+  //  for (i = generate; i > 0; i--){
+  //    var lottoNumb = document.createElement("BUTTON");
+  //    lottoNumb.value = i;
+  //    lottonumb.class = buttonNumbers;
+  //    lottonumb.onclick = selectNumber(i);
+  //    lottonumb.id = i
+  //    document.getElementById(x).appendChild(lottoNumb);
+  //  }
     var lottoNumb = document.getElementsByClassName("lottonumb");
     for (i = 0; i < lottoNumb.length; i++) {
         lottoNumb[i].value = "'";
@@ -47,13 +72,13 @@ function openNav() {
         document.getElementById("mySidenav").style.width = "0px"
     }
   }
-  
+
 // Set the width of the side navigation to 0
 function closeNav() {
     document.getElementById("mySidenav").style.width = "0px";
   }
 
-// Opens Tab by hiding all tabcontent and opening the contend by id  
+// Opens Tab by hiding all tabcontent and opening the contend by id
 function openTab(evt, tabName) {
     var i, tabcontent, tablinks;
 
@@ -69,7 +94,7 @@ function openTab(evt, tabName) {
     document.getElementById(tabName).style.display = "block";
     evt.currentTarget.className += " active"
 }
-
+// creates counter with reads the value of the slider
 var slider = document.getElementById("count");
 var output = document.getElementById("countwert");
 output.innerHTML = slider.value;
