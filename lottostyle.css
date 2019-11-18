@@ -37,7 +37,15 @@ main {
 
 header {
   text-align: center;
-  /*background-color: white;*/
+  background-color: white;
+  overflow: hidden;
+  text-align: center;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: white;
+  box-shadow: 1px 1px 20px rgba(0, 0, 0, 0.301);
+  padding: 2px 0px 15px;
+  top: 0;
+  position: sticky;
 }
 
 h1 {
