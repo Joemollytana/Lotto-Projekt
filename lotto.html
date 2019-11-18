@@ -27,13 +27,17 @@
 <body id="mainpage">
     <main id="main">
         <form method="POST" action="Auswertung.html">
+          <!--Folgender Vorschlag: Inputfelder mit Buttons ersetzten, die eine Funktion ausfühen.
+          Bei der Funktion wird der Button Farblich Markiert und die Zahl wird in ein Imputfeld gesetzt.
+          Die Zahlen im Imputfeld werden in Php weiter gegeben. Also sind die Buttons eigentlich nicht Teil des Formulars-->
+          
             <div id="buttons">
                 <input type="button" class="btn active" value="Deutschland" onclick="showStuff('de')">
                 <input type="button" class="btn" value="Belgien" onclick="showStuff('be')">
                 <input type="button" class="btn" value="Dänemark" onclick="showStuff('dä')">
                 <input type="button" class="btn" value="USA" onclick="showStuff('us')">
                 <input type="button" class="btn" value="Italien" onclick="showStuff('it')">
-                
+
             </div>
             <div id="de" class="numbers">
                 <h2>Trage eine Zahl ein von 0 bis 49</h2>

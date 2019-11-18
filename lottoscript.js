@@ -47,13 +47,13 @@ function openNav() {
         document.getElementById("mySidenav").style.width = "0px"
     }
   }
-  
+
 // Set the width of the side navigation to 0
 function closeNav() {
     document.getElementById("mySidenav").style.width = "0px";
   }
 
-// Opens Tab by hiding all tabcontent and opening the contend by id  
+// Opens Tab by hiding all tabcontent and opening the contend by id
 function openTab(evt, tabName) {
     var i, tabcontent, tablinks;
 
@@ -69,7 +69,7 @@ function openTab(evt, tabName) {
     document.getElementById(tabName).style.display = "block";
     evt.currentTarget.className += " active"
 }
-
+// creates counter with reads the value of the slider
 var slider = document.getElementById("count");
 var output = document.getElementById("countwert");
 output.innerHTML = slider.value;
