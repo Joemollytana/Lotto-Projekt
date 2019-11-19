@@ -58,15 +58,15 @@ h2 {
 }
 /* pictures loader */
 #mainpage {
-  background-image: url(lotto.jpg);
+  background-image: url(assets/lotto.jpg);
 }
 
 #agecheck {
-  background-image: url(glückspiel.jpg);
+  background-image: url(assets/glückspiel.jpg);
 }
 
 #result {
-  background-image: url(money.jpg);
+  background-image: url(assets/money.jpg);
 }
 
 /* footer settings */

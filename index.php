@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <title>Lotto_Seite</title>
 
-    <link rel="stylesheet" type="text/css" href="lottostyle.css">
+    <link rel="stylesheet" type="text/css" href="style.css">
 
 
 </head>
@@ -123,7 +123,7 @@
         kann süchtig machen. Mehr Infos unter: www.spielen-mit-verantwortung.de
     </div>
 </footer>
-<script src="lottoscript.js"></script>
+<script src="script.js"></script>
 
 
 </html>
