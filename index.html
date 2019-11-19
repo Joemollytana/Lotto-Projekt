@@ -13,7 +13,7 @@
     <h1>Dein Lotto zum Glück!</h1>
     <input type="button" onclick="openNav()" value="Regelwerk">
     <div id="mySidenav" class="sidenav" style="width: 0px;">
-        <a src="lottoscript.js" class="closebtn" onclick="closeNav()">&times;</a>
+        <a src="script.js" class="closebtn" onclick="closeNav()">&times;</a>
         <a href="https://de.wikipedia.org/wiki/Lotto#6_aus_49_in_Deutschland" target="_blank">Deutschland</a>
         <a href="https://de.wikipedia.org/wiki/Lotto#6_aus_45_in_Österreich" target="_blank">Belgien</a>
         <a href="https://www.euro-jackpot.net/daenisches-lotto" target="_blank">Dänemark</a>
@@ -23,9 +23,9 @@
 
 </header>
 <br>
-
-<body id="mainpage">
-    <main id="main">
+<script src="script.js"></script>
+<body id="mainpage" onload = "startUp()" >
+    <main id="main"  >
         <form method="POST" action="Auswertung.html">
           <!--Folgender Vorschlag: Inputfelder mit Buttons ersetzten, die eine Funktion ausfühen.
           Bei der Funktion wird der Button Farblich Markiert und die Zahl wird in ein Imputfeld gesetzt.
@@ -40,70 +40,37 @@
 
             </div>
             <div id="de" class="numbers">
-          
+
                 <h2>Trage eine Zahl ein von 0 bis 49</h2>
-                <input type="number" min="0" max="49" class="lottonumb">&emsp;
-                <input type="number" min="0" max="49" class="lottonumb">&emsp;
-                <input type="number" min="0" max="49" class="lottonumb">&emsp;
-                <br>
-                <input type="number" min="0" max="49" class="lottonumb">&emsp;
-                <input type="number" min="0" max="49" class="lottonumb">&emsp;
-                <input type="number" min="0" max="49" class="lottonumb">&emsp;
 
             </div>
 
             <div id="be" class="numbers" style="display: none;">
                 <h2>Trage eine Zahl ein von 0 bis 45</h2>
-                <input type="number" min="0" max="45" class="lottonumb">&emsp;
-                <input type="number" min="0" max="45" class="lottonumb">&emsp;
-                <input type="number" min="0" max="45" class="lottonumb">&emsp;
-                <br>
-                <input type="number" min="0" max="45" class="lottonumb">&emsp;
-                <input type="number" min="0" max="45" class="lottonumb">&emsp;
-                <input type="number" min="0" max="45" class="lottonumb">&emsp;
 
 
             </div>
 
             <div id="dä" class="numbers" style="display: none;">
                 <h2>Trage eine Zahl ein von 0 bis 36</h2>
-                <input type="number" min="0" max="36" class="lottonumb">&emsp;
-                <input type="number" min="0" max="36" class="lottonumb">&emsp;
-                <input type="number" min="0" max="36" class="lottonumb">&emsp;
-                <br>
-                <input type="number" min="0" max="36" class="lottonumb">&emsp;
-                <input type="number" min="0" max="36" class="lottonumb">&emsp;
-                <input type="number" min="0" max="36" class="lottonumb">&emsp;
-                <br>
-                <input type="number" min="0" max="36" class="lottonumb">&emsp;
+
             </div>
 
             <div id="us" class="numbers" style="display: none;">
                 <h2>Trage eine Zahl ein von 0 bis 69</h2>
-                <input type="number" min="0" max="69" class="lottonumb">&emsp;
-                <input type="number" min="0" max="69" class="lottonumb">&emsp;
-                <input type="number" min="0" max="69" class="lottonumb">&emsp;
-                <br>
-                <input type="number" min="0" max="69" class="lottonumb">&emsp;
-                <input type="number" min="0" max="69" class="lottonumb">&emsp;
+
             </div>
 
             <div id="it" class="numbers" style="display: none;">
                 <h2>Trage eine Zahl ein von 0 bis 90</h2>
-                <input type="number" min="0" max="90" class="lottonumb">&emsp;
-                <input type="number" min="0" max="90" class="lottonumb">&emsp;
-                <input type="number" min="0" max="90" class="lottonumb">&emsp;
-                <br>
-                <input type="number" min="0" max="90" class="lottonumb">&emsp;
-                <input type="number" min="0" max="90" class="lottonumb">&emsp;
-                <input type="number" min="0" max="90" class="lottonumb">&emsp;
+
             </div>
 
             <br>
             <div>
                 <h2>Wie viele Lottoziehungen?</h2>
                 <div class="slidecontainer">
-                <input type="range" name="Ziehungen" class="slider" id="count" min="1" max="1000" step="1" value="1">
+                <input type="range" name="Ziehungen" class="slider" id="count" min="1" max="1000" step="1" value="1" oninput = "refreshCounter()">
                 <p>Wert: <span id="countwert"></span></p>
                 </div>
             </div>
@@ -123,7 +90,7 @@
         kann süchtig machen. Mehr Infos unter: www.spielen-mit-verantwortung.de
     </div>
 </footer>
-<script src="script.js"></script>
+
 
 
 </html>

@@ -11,6 +11,15 @@ body {
   transition: 0.5s;
 }
 
+.buttonNumbers {
+  border: none;
+  outline: none;
+  padding: 10px 16px;
+  background-color: #f1f1f1;
+  cursor: pointer;
+  transition: 0.5s;
+}
+
 .active, .countryBtn:hover {
   background-color: red;
   color: white
