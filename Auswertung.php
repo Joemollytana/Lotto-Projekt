@@ -36,7 +36,7 @@
       $wins = 0;
       $results = [];
     
-      for($i = 1; i <= $draws; $i++){
+      for($i = 1; $i <= $draws; $i++){
         $frame = $numbers;
         $draw = [];
         for($j = 1; $j <= count($picks); $j++) {
