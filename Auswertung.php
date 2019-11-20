@@ -1,6 +1,57 @@
 <html>
-
 <head>
+    <?php #$array = [0 => "a", 1 => "b", 2 => "c"];
+    #echo $array[0];
+    #unset($array[1]);
+    #$array = array_values($array);
+    #echo $array[1];
+    
+    function numbers_per_country($country) {
+      $length = 0;
+      $array = [];
+      
+      # Zahlen der Ziehung definieren
+      if($country == "de"){
+        $length = 49;
+       } elseif($country == "be"){
+        $length = 45;
+       } elseif($country == "dk"){
+        $length = 36;
+       } elseif($country == "us"){
+        $length = 69;
+       } elseif($country == "it"){
+        $length = 90;
+       }
+      
+      # Zahlen der Ziehung in Array füllen
+      for($i=0; $i<$length; $i++) {
+         $array[$i] = $i+1;
+       }
+      
+      return $array;
+    }
+    
+    function draw($country, $picks, $draws) {
+      $numbers = numbers_per_country($country);
+      $wins = 0;
+      $results = [];
+    
+      for($i = 1; i <= $draws; $i++){
+        $frame = $numbers;
+        $draw = [];
+        for($j = 1; $j <= count($picks); $j++) {
+          $number = rand(0, count($frame));
+          $draw[$j] = $frame[$number];
+          unset($frame[$number]);
+          $draw = array_values($draw);
+        }
+        $results[] = $draw;
+      }
+    
+      print_r(array_values($results));
+    }
+    draw("de",["1","2","3","4","5","6"], 2);
+    ?>
     <title>Auswertung</title>
     <link rel="stylesheet" href="style.css">
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
