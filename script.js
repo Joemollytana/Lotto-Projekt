@@ -137,15 +137,27 @@ function selectedNumber(i) {
     var maxLottoNumbers = 7;
   } else if (countryCode == "USA") {
     var maxLottoNumbers = 5;
-  } else {alert("Fehler bei CountryCode!")}
-
-  if (finalNumbersList.length < maxLottoNumbers) {
+  } else {
+    alert("Fehler bei CountryCode!")
+  }
   if (numba.className != "buttonNumbers active") {
-    numba.className += " active";
+    if (finalNumbersList.length < maxLottoNumbers) {
+      numba.className += " active";
+    } else {
+      alert("Zu viele Zahlen ausgewählt! Maximalmenge ist: "+maxLottoNumbers);
+
+    }
   } else {
     numba.className = numba.className.replace(" active", "");
   }
-} else {
-  alert("TOO MUCH")
-}
+  if (finalNumbersList.length == maxLottoNumbers) {
+    var fNumb = []
+    for (i = 0; i < finalNumbersList.length; i++) {
+      fNumb.push(finalNumbersList[i].value);
+    }
+    var x = fNumb.toString();
+    document.getElementById("finalNumbers").value = x;
+  } else {
+    document.getElementById("finalNumbers").value = "";
+  }
 }
