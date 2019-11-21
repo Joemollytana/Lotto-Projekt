@@ -39,11 +39,11 @@
       for($i = 1; $i <= $draws; $i++){
         $frame = $numbers;
         $draw = [];
-        for($j = 1; $j <= count($picks); $j++) {
-          $number = rand(0, count($frame));
+        for($j = 0; $j < count($picks); $j++) {
+          $number = rand(0, count($frame)-1);
           $draw[$j] = $frame[$number];
           unset($frame[$number]);
-          $draw = array_values($draw);
+          $frame = array_values($frame);
         }
         $results[] = $draw;
       }
