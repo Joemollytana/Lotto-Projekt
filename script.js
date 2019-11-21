@@ -56,7 +56,6 @@ function showStuff(countryCode) { // NICHT FERTIG !!!!!
     lottoNumb.setAttribute("class", "buttonNumbers");
     var func = j
     lottoNumb.setAttribute("onclick", "selectedNumber(" + j + ")"); //ficker will nicht function weitergeben
-
     lottoNumb.id = j
     document.getElementById(countryCode).appendChild(lottoNumb);
   }
