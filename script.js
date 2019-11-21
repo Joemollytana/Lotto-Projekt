@@ -113,7 +113,7 @@ function refreshCounter() {
     counterOutput.value = this.value;
     draw.value = this.value;
   }
-  counterOutput.onkeyup = function (){
+  counterOutput.onkeyup = function() {
     slider.value = this.value;
     draw.value = this.value;
     if (this.value < 1) {
@@ -126,5 +126,26 @@ function refreshCounter() {
 }
 
 function selectedNumber(i) {
-  alert("Hallo");
+  var numba = document.getElementById(i);
+  var finalNumbersList = document.getElementsByClassName("buttonNumbers active");
+  var countryCodeList = document.getElementsByClassName("countryBtn active");
+  var countryCode = countryCodeList[0].value;
+
+  if (countryCode == "Deutschland" || countryCode == "Belgien" || countryCode == "Italien") {
+    var maxLottoNumbers = 6;
+  } else if (countryCode == "Dänemark") {
+    var maxLottoNumbers = 7;
+  } else if (countryCode == "USA") {
+    var maxLottoNumbers = 5;
+  } else {alert("Fehler bei CountryCode!")}
+
+  if (finalNumbersList.length < maxLottoNumbers) {
+  if (numba.className != "buttonNumbers active") {
+    numba.className += " active";
+  } else {
+    numba.className = numba.className.replace(" active", "");
+  }
+} else {
+  alert("TOO MUCH")
+}
 }
