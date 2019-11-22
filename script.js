@@ -114,7 +114,7 @@ function refreshCounter() {
     draw.value = this.value;
   }
   //################################################!!!!!!!
-  counterOutput.onkeyup = function() { ///////ÜBERARBEITEN
+  counterOutput.onchange = function() { ///////ÜBERARBEITEN
     slider.value = this.value;
     draw.value = this.value;
     if (this.value < 1) {
