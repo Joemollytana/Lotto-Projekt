@@ -39,7 +39,7 @@ function showStuff(countryCode) { // NICHT FERTIG !!!!!
     var generate = 49;
   } else if (countryCode == "be") {
     var generate = 45;
-  } else if (countryCode == "dä") {
+  } else if (countryCode == "dk") {
     var generate = 36;
   } else if (countryCode == "us") {
     var generate = 69;
