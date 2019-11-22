@@ -31,7 +31,7 @@
       return $array;
     }
     
-    function draw($country, $picks, $draws) {
+    function draw($country = "it", $picks = ["1","2","3","4","5","6"], $draws = 10) {
       $numbers = numbers_per_country($country);
       $wins = 0;
       $results = [];
@@ -50,7 +50,12 @@
     
       print_r(array_values($results));
     }
-    draw("de",["1","2","3","4","5","6"], 2);
+
+    #Form Handling
+
+    draw($_POST["country"],
+         $array = explode(",", $_POST["numbers"]),
+         $_POST["draws"]);
     ?>
     <title>Auswertung</title>
     <link rel="stylesheet" href="style.css">
@@ -84,7 +89,7 @@
 <header>
     <h1>Ergebnisse der Lottoziehung:</h1>
     <div>
-        <input type="button" value="Zurück zur Lottoziehung" onclick="location.href='lotto.html'">
+        <input type="button" value="Zurück zur Lottoziehung" onclick="location.href='index.html'">
 
     </div>
 </header>
