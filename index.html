@@ -38,9 +38,9 @@
 
     <!-- Anstelle einzelner Divs könnten mehrere Spans verwendet werden um Redundanten Text zu Kürzen, e.g.:
         <div class"numbers">
-            <h2> Trage eine Zahl ein von <span id="de"> 0 bis 49 <span> <span id="dk"> 0 bis 36 <span> 
-        <div> 
-            
+            <h2> Trage eine Zahl ein von <span id="de"> 0 bis 49 <span> <span id="dk"> 0 bis 36 <span>
+        <div>
+
         Oder mit JS:
             Span.innerhtml nach function setzen
 
@@ -87,11 +87,12 @@
       <div id="choice">
         <div id="form_box1">
         <form method="POST" action="Auswertung.php">
-          Finale Zahlen: <input type="text" id="finalNumbers"
-                                name="finalNumbers" value="" readonly required>
-          <br>
-          Anzahl Lottoziehungen: <input type="number" id="finalDraw" value="" readonly required>
-          <br>
+          <ul>
+            <li>Finale Zahlen: <input type="text" id="finalNumbers"
+                                  name="finalNumbers" value="" readonly required></li>
+            <li>Anzahl Lottoziehungen: <input type="number" id="finalDraw"
+                                              value="" readonly required></li>
+          </ul>
         </form>
         </div>
         <div id="form_box2">

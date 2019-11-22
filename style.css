@@ -23,8 +23,8 @@ body {
   margin: 2.5px
 }
 .buttonNumbers:hover {
-  background-color: white;
-  color: black;
+  /*background-color: white;
+  color: black;*/
   font-weight: bold;
   /*border: 1px solid lightgray;*/
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
@@ -50,6 +50,23 @@ main {
 
 #Senden {
   align-self: flex-end;
+}
+#Senden input {
+  background-color: rgba(252, 255, 110, 0.95);
+  padding: 10px 16px;
+  color: #db0202;
+  border: 2px solid #db0202;
+  border-radius: 50px;
+  transition: 0.5s;
+  font-weight: bold;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  width: 25%
+}
+#Senden input:hover {
+  background-color: #db0202;
+  color: white;
+  /*border: 2px solid #db0202;*/
+  cursor: pointer;
 }
 
 header {
@@ -243,16 +260,49 @@ footer {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  margin-bottom: 20px;
+  margin: auto;
+  margin-bottom: 35px;
+  width: 70%;
+  justify-content: center;
 }
 #form_box1 {
   order: 0;
   flex-grow: 1;
+  text-align: left;
 }
 #form_box1 input {
-  margin-bottom: 10px;
+  margin-bottom: 15px;
 }
 #form_box2 {
   order: 1;
   flex-grow: 1;
+}
+
+/*############################################################################*/
+
+#finalNumbers, #finalDraw, #finalCountry {
+  background-color: rgba(252, 255, 130, 0.95);
+  padding: 5px;
+  padding-left: 10px;
+  padding-right: 10px;
+  border: 1px solid rgba(252, 255, 110, 0.95);
+  border-radius: 5px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  margin-left: 15px;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+/*Das gleiche für Firefox*/
+input[type=number] {
+    -moz-appearance:textfield;
+}
+
+ul {
+  list-style: none;
+  padding-left: 0px;
+  margin-left: 0px;
 }
