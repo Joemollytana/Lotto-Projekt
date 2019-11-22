@@ -1,10 +1,6 @@
 <html>
 <head>
-    <?php #$array = [0 => "a", 1 => "b", 2 => "c"];
-    #echo $array[0];
-    #unset($array[1]);
-    #$array = array_values($array);
-    #echo $array[1];
+    <?php ini_set('memory_limit', '2048M');
     
     function numbers_per_country($country) {
       $length = 0;
@@ -34,6 +30,7 @@
     function draw($country = "it", $picks = ["1","2","3","4","5","6"], $draws = 10) {
       $numbers = numbers_per_country($country);
       $wins = 0;
+      $draw_numbers = [];
       $results = [];
     
       for($i = 1; $i <= $draws; $i++){
@@ -45,10 +42,15 @@
           unset($frame[$number]);
           $frame = array_values($frame);
         }
+        if(count(array_diff($draw, $picks)) == 0){
+            $wins++;
+            $draw_numbers[] = $i;
+        }
         $results[] = $draw;
       }
     
-      print_r(array_values($results));
+      echo $wins;
+      print_r($draw_numbers);
     }
 
     #Form Handling
