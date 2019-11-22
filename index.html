@@ -30,11 +30,24 @@
     <div id="buttons">
       <input type="button" class="countryBtn active" value="Deutschland" onclick="showStuff('de')">
       <input type="button" class="countryBtn" value="Belgien" onclick="showStuff('be')">
-      <input type="button" class="countryBtn" value="Dänemark" onclick="showStuff('dä')">
+      <input type="button" class="countryBtn" value="Dänemark" onclick="showStuff('dk')">
       <input type="button" class="countryBtn" value="USA" onclick="showStuff('us')">
       <input type="button" class="countryBtn" value="Italien" onclick="showStuff('it')">
     </div>
     <br>
+
+    <!-- Anstelle einzelner Divs könnten mehrere Spans verwendet werden um Redundanten Text zu Kürzen, e.g.:
+        <div class"numbers">
+            <h2> Trage eine Zahl ein von <span id="de"> 0 bis 49 <span> <span id="dk"> 0 bis 36 <span> 
+        <div> 
+            
+        Oder mit JS:
+            Span.innerhtml nach function setzen
+
+
+    Außerdem: Anzahl verfügbarer Zahlen
+    -->
+
     <div id="de" class="numbers">
       <h2>Trage eine Zahl ein von 0 bis 49</h2>
     </div>
@@ -43,7 +56,7 @@
       <h2>Trage eine Zahl ein von 0 bis 45</h2>
     </div>
 
-    <div id="dä" class="numbers" style="display: none;">
+    <div id="dk" class="numbers" style="display: none;">
       <h2>Trage eine Zahl ein von 0 bis 36</h2>
 
     </div>
@@ -68,10 +81,12 @@
     </div>
     <br>
     <div>
+
+    <!-- Land und Anzahl als Input Type Hidden? -->
       <h2>Deine Auswahl:</h2>
       <div id="choice">
         <div id="form_box1">
-        <form method="POST" action="Auswertung.html">
+        <form method="POST" action="Auswertung.php">
           Finale Zahlen: <input type="text" id="finalNumbers"
                                 name="finalNumbers" value="" readonly required>
           <br>
