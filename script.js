@@ -20,21 +20,25 @@ function startUp() {
   showStuff("de");
   refreshCounter();
 }
-// when clicking on button, hide other countries and show selected country
-function showStuff(countryCode) { // NICHT FERTIG !!!!!
+// when clicking on a country, hide other countries content, generate buttonNumbers and show them
+function showStuff(countryCode) {
   var finalC = document.getElementById("finalCountry")
   finalC.value = countryCode
   var removeCountries = document.getElementsByClassName("buttonNumbers");
+  // if buttons are already existing, remove the Buttons and remove the final numbers
   if (removeCountries.length != "none") {
     while (removeCountries.length > 0) {
       removeCountries[0].parentNode.removeChild(removeCountries[0]);
+      document.getElementById("finalNumbers").value = "";
     }
   }
+  // hide all divs content
   var lottoNumbcontainer = document.getElementsByClassName("numbers");
   for (i = 0; i < lottoNumbcontainer.length; i++) {
     lottoNumbcontainer[i].style.display = "none";
+
   }
-  // idea is to generate the buttons when needed. Maybe generate them beforehand and only show if nessesary?
+  // check how much buttons are needed
   if (countryCode == "de") {
     var generate = 49;
   } else if (countryCode == "be") {
@@ -48,21 +52,18 @@ function showStuff(countryCode) { // NICHT FERTIG !!!!!
   } else {
     var generate = 0;
   }
-
+  // generate the required amount of numbers and add needed attributes
   for (j = 1; j < generate + 1; j++) {
     var lottoNumb = document.createElement("INPUT");
     lottoNumb.type = "button";
     lottoNumb.value = j;
     lottoNumb.setAttribute("class", "buttonNumbers");
     var func = j
-    lottoNumb.setAttribute("onclick", "selectedNumber(" + j + ")"); //ficker will nicht function weitergeben
+    lottoNumb.setAttribute("onclick", "selectedNumber(" + j + ")");
     lottoNumb.id = j
     document.getElementById(countryCode).appendChild(lottoNumb);
   }
-  var lottoNumb = document.getElementsByClassName("lottonumb");
-  for (i = 0; i < lottoNumb.length; i++) {
-    lottoNumb[i].value = "'";
-  }
+  //show only needed country content
   var x = document.getElementById(countryCode);
   if (x.style.display === "none") {
     x.style.display = "block";
@@ -88,7 +89,6 @@ function closeNav() {
 // Opens Tab by hiding all tabcontent and opening the contend by id
 function openTab(evt, tabName) {
   var i, tabcontent, tablinks;
-
   tabcontent = document.getElementsByClassName("tabcontent");
   for (i = 0; i < tabcontent.length; i++) {
     tabcontent[i].style.display = "none";
@@ -113,7 +113,8 @@ function refreshCounter() {
     counterOutput.value = this.value;
     draw.value = this.value;
   }
-  counterOutput.onkeyup = function() {
+  //################################################!!!!!!!
+  counterOutput.onkeyup = function() { ///////ÜBERARBEITEN
     slider.value = this.value;
     draw.value = this.value;
     if (this.value < 1) {
@@ -124,13 +125,13 @@ function refreshCounter() {
 
   }
 }
-
+// selected Number is marked as active and gives them to the form
 function selectedNumber(i) {
   var numba = document.getElementById(i);
   var finalNumbersList = document.getElementsByClassName("buttonNumbers active");
   var countryCodeList = document.getElementsByClassName("countryBtn active");
   var countryCode = countryCodeList[0].value;
-
+  // checks how much buttons can be marked as active max
   if (countryCode == "Deutschland" || countryCode == "Belgien" || countryCode == "Italien") {
     var maxLottoNumbers = 6;
   } else if (countryCode == "Dänemark") {
@@ -140,16 +141,18 @@ function selectedNumber(i) {
   } else {
     alert("Fehler bei CountryCode!")
   }
+  //mark unactive button as active if unactive or unactive if active
   if (numba.className != "buttonNumbers active") {
+    // check how many active buttons are and compare with max amount
     if (finalNumbersList.length < maxLottoNumbers) {
       numba.className += " active";
     } else {
-      alert("Zu viele Zahlen ausgewählt! Maximalmenge ist: "+maxLottoNumbers);
-
+      alert("Zu viele Zahlen ausgewählt! Maximalmenge ist: " + maxLottoNumbers);
     }
   } else {
     numba.className = numba.className.replace(" active", "");
   }
+  // if got max amount of final numbers then give the list to the form
   if (finalNumbersList.length == maxLottoNumbers) {
     var fNumb = []
     for (i = 0; i < finalNumbersList.length; i++) {
