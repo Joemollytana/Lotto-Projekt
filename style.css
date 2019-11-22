@@ -52,10 +52,10 @@ main {
   align-self: flex-end;
 }
 #Senden input {
-  background-color: rgba(252, 255, 110, 0.95);
+  background-color: #db0202;
   padding: 10px 16px;
-  color: #db0202;
-  border: 2px solid #db0202;
+  color: white;
+  border: 1px solid #db0202;
   border-radius: 50px;
   transition: 0.5s;
   font-weight: bold;
@@ -63,8 +63,10 @@ main {
   width: 25%
 }
 #Senden input:hover {
-  background-color: #db0202;
+  background-color: #ff2f2f;
   color: white;
+  border: 1px solid #ff3f3f;
+  transition: 0.5s;
   /*border: 2px solid #db0202;*/
   cursor: pointer;
 }
@@ -78,7 +80,7 @@ header {
   color: white;
   box-shadow: 1px 1px 20px rgba(0, 0, 0, 0.301);
   padding: 2px 0px 15px;
-  margin-bottom: 20px;
+  margin-bottom: 50px;
 }
 
 h1 {
@@ -287,6 +289,9 @@ footer {
   border-radius: 5px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   margin-left: 15px;
+}
+#finalDraw {
+  width: 38%;
 }
 
 input::-webkit-outer-spin-button,

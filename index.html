@@ -6,22 +6,23 @@
   <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 
-<header>
-  <h1>Dein Lotto zum Glück!</h1>
-  <input type="button" onclick="openNav()" value="Regelwerk">
-  <div id="mySidenav" class="sidenav" style="width: 0px;">
-    <a src="script.js" class="closebtn" onclick="closeNav()">&times;</a>
-    <a href="https://de.wikipedia.org/wiki/Lotto#6_aus_49_in_Deutschland" target="_blank">Deutschland</a>
-    <a href="https://de.wikipedia.org/wiki/Lotto#6_aus_45_in_Österreich" target="_blank">Belgien</a>
-    <a href="https://www.euro-jackpot.net/daenisches-lotto" target="_blank">Dänemark</a>
-    <a href="https://en.wikipedia.org/wiki/Powerball#Playing_the_game" target="_blank">USA</a>
-    <a href="https://de.wikipedia.org/wiki/Lotto#6_aus_90_in_Italien" target="_blank">Italien</a>
-  </div>
 
-</header>
-<br>
+<!--<br>-->
 <script src="script.js"></script>
 <body id="mainpage" onload = "startUp()" >
+  <header>
+    <h1>Dein Lotto zum Glück!</h1>
+    <input type="button" onclick="openNav()" value="Regelwerk">
+    <div id="mySidenav" class="sidenav" style="width: 0px;">
+      <a src="script.js" class="closebtn" onclick="closeNav()">&times;</a>
+      <a href="https://de.wikipedia.org/wiki/Lotto#6_aus_49_in_Deutschland" target="_blank">Deutschland</a>
+      <a href="https://de.wikipedia.org/wiki/Lotto#6_aus_45_in_Österreich" target="_blank">Belgien</a>
+      <a href="https://www.euro-jackpot.net/daenisches-lotto" target="_blank">Dänemark</a>
+      <a href="https://en.wikipedia.org/wiki/Powerball#Playing_the_game" target="_blank">USA</a>
+      <a href="https://de.wikipedia.org/wiki/Lotto#6_aus_90_in_Italien" target="_blank">Italien</a>
+    </div>
+  </header>
+
     <main id="main"  >
     <div id="buttons">
       <input type="button" class="countryBtn active" value="Deutschland" onclick="showStuff('de')">
@@ -76,55 +77,53 @@
       </div>
     </div>
     <br>
-    <div>
+    <!--<div>-->
 
     <!-- 1 Land und Anzahl als Input Type Hidden?
          2 Name und ID angleichen
     -->
       <h2>Deine Auswahl:</h2>
-      <div id="choice">
-        <div id="form_box1">
-        <form method="POST" action="Auswertung.php">
-<<<<<<< HEAD
+      <!--<div >-->
+        <form method="POST" action="Auswertung.php" id="choice">
+          <div id="form_box1">
+          <!--<<<<<<< HEAD-->
           <ul>
             <li>Finale Zahlen: <input type="text" id="finalNumbers"
-                                  name="finalNumbers" value="" readonly required></li>
+                                  name="Numbers" value="" readonly required></li>
             <li>Anzahl Lottoziehungen: <input type="number" id="finalDraw"
-                                              value="" readonly required></li>
+                                              name="draws" value="" readonly required></li>
           </ul>
-=======
+          <!--=======
           Finale Zahlen: <input type="text" id="finalNumbers"
                                 name="numbers" value="" readonly required>
           <br>
           Anzahl Lottoziehungen: <input type="number" id="finalDraw" name="draws" value="" readonly required>
           <br>
->>>>>>> 0f6849882d263a4c30c0a2a048c9f374331b4824
-        </form>
+          >>>>>>> 0f6849882d263a4c30c0a2a048c9f374331b4824
+        </form>-->
         </div>
         <div id="form_box2">
-        <form method="POST" action="Auswertung.php">
-          Land: <input type="text" id="finalCountry" name="country" value="" readonly required>
-          <br>
-        </form>
+        <!--<form method="POST" action="Auswertung.php">-->
+          <ul>
+            <li>Land: <input type="text" id="finalCountry" name="country" value="" readonly required></li>
+          </ul>
         </div>
-      </div>
+      </form>
+    <!--</div>-->
       <div id="Senden">
         <input type="submit" id="Senden" value="Bestätigen und Senden">
       </div>
-    </div>
+    <!--</div>-->
 
   </main>
+  <footer>
+    <div>
+      Trotz sorgfältiger inhaltlicher Kontrolle übernimmt die Lotto-DHBW-VS keine Haftung für die Inhalte
+      externer Links. Für den Inhalt der verlinkten Seiten sind ausschließlich deren Betreiber verantwortlich.
+      Es werden keine Zusicherungen abgegeben und keinerlei Gewährleistung und Haftung für die Richtigkeit der
+      bereitgestellten Informationen übernommen. Spielen mit Verantwortung. Spielteilnahme ab 18 Jahren. Glücksspiel
+      kann süchtig machen. Mehr Infos unter: www.spielen-mit-verantwortung.de
+    </div>
+  </footer>
 </body>
-<footer>
-  <div>
-    Trotz sorgfältiger inhaltlicher Kontrolle übernimmt die Lotto-DHBW-VS keine Haftung für die Inhalte
-    externer Links. Für den Inhalt der verlinkten Seiten sind ausschließlich deren Betreiber verantwortlich.
-    Es werden keine Zusicherungen abgegeben und keinerlei Gewährleistung und Haftung für die Richtigkeit der
-    bereitgestellten Informationen übernommen. Spielen mit Verantwortung. Spielteilnahme ab 18 Jahren. Glücksspiel
-    kann süchtig machen. Mehr Infos unter: www.spielen-mit-verantwortung.de
-  </div>
-</footer>
-
-
-
 </html>
