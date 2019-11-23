@@ -1,3 +1,12 @@
+//
+function checkAge() {
+  var age = document.getElementById("datecheck").value;
+  var today = Date.now(year, month, day);
+  if (today-age < 18) {
+    alert("Minderjährig!")
+  } else {}
+}
+//
 function startUp() {
   // Get the container element
   var btnContainer = document.getElementById("buttons");
@@ -71,7 +80,6 @@ function showStuff(countryCode) {
     x.style.display = "none";
   }
 }
-
 // Opens side bar and width is set to 250px
 function openNav() {
   if (document.getElementById("mySidenav").style.width == "0px") {
@@ -80,12 +88,10 @@ function openNav() {
     document.getElementById("mySidenav").style.width = "0px"
   }
 }
-
 // Set the width of the side navigation to 0
 function closeNav() {
   document.getElementById("mySidenav").style.width = "0px";
 }
-
 // Opens Tab by hiding all tabcontent and opening the contend by id
 function openTab(evt, tabName) {
   var i, tabcontent, tablinks;

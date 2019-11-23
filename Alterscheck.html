@@ -3,6 +3,7 @@
 <head>
     <title>Alterscheck</title>
     <link rel="stylesheet" href="style.css">
+    <script src="script.js"> </script>
 </head>
 <header>
     <h1>Glücksspiel kann süchtig machen.</h1>
@@ -11,10 +12,8 @@
 <body id="agecheck">
     <main>
         <h2>Gebe dein Geburtsdatum an:</h2>
-        <form method="POST" action="lotto.html">
-            <input type="date" id="datecheck">
+            <input type="date" id="datecheck" onchange="checkAge()">
             <input type="submit" value="Senden">
-        </form>
     </main>
 </body>
 <footer>
