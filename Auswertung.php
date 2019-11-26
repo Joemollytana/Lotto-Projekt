@@ -103,6 +103,8 @@
     function main(){
         #Check if Params have values
         if (isset($_POST["country"]) && isset($_POST["numbers"]) && isset($_POST["draws"])){
+
+            global $results, $hits, $victoryState;
             
             $countryNumbers = numbers_per_country($_POST["country"]);
             $picks          = explode(",", $_POST["numbers"]);
@@ -111,9 +113,9 @@
             $drawCount      = $countryNumbers[1];
             
             # Correlating Numbers at the same Index
-            global $results        = raffle($drawNumbers, $drawCount, $_POST["draws"]);
-            global $hits           = count_Hits($picks, $results, $iterations);
-            global $victoryState   = define_lose_or_victory($hits, $iterations, $drawCount);
+            $results        = raffle($drawNumbers, $drawCount, $_POST["draws"]);
+            $hits           = count_Hits($picks, $results, $iterations);
+            $victoryState   = define_lose_or_victory($hits, $iterations, $drawCount);
 
         }
 
