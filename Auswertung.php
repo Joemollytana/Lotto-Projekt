@@ -6,6 +6,7 @@
 
     $results        = [];
     $hits           = [];
+    $misses         = [];
     $victoryState   = [];
     
     function numbers_per_country($country) {
@@ -44,10 +45,8 @@
         for($i=0; $i<$length; $i++) {
             $array[$i] = $i+1;
           }
-
         return $array;
     }
-
     
     function raffle($drawNumbers, $drawCount, $iterations) {
         
@@ -65,12 +64,12 @@
                 $raffle_box = array_values($raffle_box);
             }
 
+            if ($iterations > 1){
+                $draw = sort($draw);
+            }
             $results[] = $draw;
-
         }
-
         return $results;
-     
     }
 
     function count_Hits($picks, $results, $iterations) {
@@ -83,16 +82,28 @@
         return $hits;
     }
 
+    function count_Misses($picks, $results, $iterations) {
+        $misses = [];
+
+        for ($i = 0; $i < $iterations; $i++){
+            $misses[] = count(array_diff($picks, $results[$i]));
+        }
+
+        return $misses;
+    }
+
     function define_lose_or_victory($arrayOfHits, $iterations, $drawCount){
         $victoryState = [];
 
         for ($i = 0; $i < $iterations; $i++){
             if ($arrayOfHits[$i] == $drawCount) {
-                $victoryState[] = True;
+                $victoryState[] = 1;#"Gewinn!";
             } else {
-                $victoryState[] = False;
+                $victoryState[] = 0;#"Verlust!";
             }
         }
+
+        return $victoryState;
     }
 
     #function excel_export($results, $hits, $victoryState, $iterations){
@@ -104,7 +115,7 @@
         #Check if Params have values
         if (isset($_POST["country"]) && isset($_POST["numbers"]) && isset($_POST["draws"])){
 
-            global $results, $hits, $victoryState;
+            global $results, $hits, $misses, $victoryState;
             
             $countryNumbers = numbers_per_country($_POST["country"]);
             $picks          = explode(",", $_POST["numbers"]);
@@ -113,16 +124,32 @@
             $drawCount      = $countryNumbers[1];
             
             # Correlating Numbers at the same Index
-            $results        = raffle($drawNumbers, $drawCount, $_POST["draws"]);
+            $results        = raffle($drawNumbers, $drawCount, $iterations);
             $hits           = count_Hits($picks, $results, $iterations);
+            $misses         = count_Misses($picks, $results, $iterations);
             $victoryState   = define_lose_or_victory($hits, $iterations, $drawCount);
-
         }
-
     }
 
     main();
+
+    #Test
+    #$countryNumbers = numbers_per_country("dk");
+    #$picks          = explode(",", "2,3,4,5,6,7,8");
+    #$iterations     = "1";
+    #$drawNumbers    = $countryNumbers[0];
+    #$drawCount      = $countryNumbers[1];
+    #        
+    ## Correlating Numbers at the same Index
+    #$results        = raffle($drawNumbers, $drawCount,  $iterations);
+    #$hits           = count_Hits($picks, $results, $iterations);
+    #$victoryState   = define_lose_or_victory($hits, $iterations, $drawCount);
+    #
+    #print_r($results);
+    #print_r($hits);
+    #print_r($victoryState);
     ?>
+    
     <title>Auswertung</title>
     <link rel="stylesheet" href="style.css">
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
@@ -165,6 +192,10 @@
 <body id="result">
 
     <main id=main>
+    <?php 
+    print_r($results);
+    print_r($hits);
+    ?>
         <div class="tab">
             <button class="tablinks" onclick="openTab(event, 'Statistik')" id="defaultOpen">Statistische
                 Auswertung</button>
