@@ -1,3 +1,5 @@
+<!DOCTYPE html>
+
 <html lang="de">
 
 <head>
@@ -9,7 +11,8 @@
 
 <!--<br>-->
 <script src="script.js"></script>
-<body id="mainpage" onload = "startUp()" >
+
+<body id="mainpage" onload="startUp()">
   <header>
     <h1>Dein Lotto zum Glück!</h1>
     <input type="button" onclick="openNav()" value="Regelwerk">
@@ -23,7 +26,7 @@
     </div>
   </header>
 
-    <main id="main"  >
+  <main id="main">
     <div id="buttons">
       <input type="button" class="countryBtn active" value="Deutschland" onclick="showStuff('de')">
       <input type="button" class="countryBtn" value="Belgien" onclick="showStuff('be')">
@@ -72,8 +75,8 @@
     <div>
       <h2>Wie viele Lottoziehungen?</h2>
       <div class="slidecontainer">
-        <input type="range" name="Ziehungen" class="slider" id="count" min="1" max="1000" step="1" value="1" oninput="refreshCounter()">
-        Wert: <input type="number" id="countwert" value="" max="1000" min="1" required>
+        <input type="range" name="Ziehungen" class="slider" id="count" min="1" max="1000000" step="1" value="1" oninput="refreshCounter()">
+        Wert: <input type="number" id="countwert" value="" max="1000000" min="1" required>
       </div>
     </div>
     <br>
@@ -82,21 +85,18 @@
     <!-- 1 Land und Anzahl als Input Type Hidden?
          2 Name und ID angleichen
     -->
-      <h2>Deine Auswahl:</h2>
-      <!--<div >-->
-        <form method="POST" action="Auswertung.php" id="choice">
-          <div id="form_box1">
-          <!--<<<<<<< HEAD-->
-          <ul>
-            <li>Finale Zahlen: <input type="text" id="finalNumbers"
-                                      name="Numbers" value="" readonly required>
-            </li>
-            <li>Anzahl Lottoziehungen: <input type="number" id="finalDraw"
-                                              name="draws" value=""
-                                              readonly required>
-            </li>
-          </ul>
-          <!--=======
+    
+
+    <form method="POST" action="Auswertung.php" id="choice">
+      <div id="form_box1">
+
+        <ul>
+          <li>Finale Zahlen: <input type="text" id="finalNumbers" name="Numbers" value="" required>
+          </li>
+          <input type="hidden" id="finalDraw" name="draws" value="" required >
+
+        </ul>
+        <!--=======
           Finale Zahlen: <input type="text" id="finalNumbers"
                                 name="numbers" value="" readonly required>
           <br>
@@ -104,22 +104,21 @@
           <br>
           >>>>>>> 0f6849882d263a4c30c0a2a048c9f374331b4824
         </form>-->
-        </div>
-        <div id="form_box2">
+      </div>
+      <div id="form_box2">
         <!--<form method="POST" action="Auswertung.php">-->
-          <ul>
-            <li>Land: <input type="text" id="finalCountry" name="country"
-                             value="" readonly required>
-            </li>
-          </ul>
-        </div>
-      </form>
-    <!--</div>-->
+        <ul>
+          <input type="hidden" id="finalCountry" name="country" value="" readonly required>
+
+        </ul>
+      </div>
+
+      <!--</div>-->
       <div id="Senden">
         <input type="submit" id="Senden" value="Bestätigen und Senden">
       </div>
+    </form>
     <!--</div>-->
-
   </main>
   <footer>
     <div>
@@ -131,4 +130,5 @@
     </div>
   </footer>
 </body>
+
 </html>

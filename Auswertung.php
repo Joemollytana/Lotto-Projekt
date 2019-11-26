@@ -1,18 +1,18 @@
 <html>
 <head>
-<?php 
-    # Setting available RAM for calculations to 2GB 
+<?php
+    # Setting available RAM for calculations to 2GB
     ini_set('memory_limit', '1024M');
 
     $results        = [];
     $hits           = [];
     $victoryState   = [];
-    
+
     function numbers_per_country($country) {
       $availableNumbers = 0;
       $selectableCount = 0;
       $availableSelectableArray = [];
-      
+
       # Defining available and selectable count of numbers
       if ($country == "de"){
         $availableNumbers   = 49;
@@ -30,7 +30,7 @@
         $availableNumbers   = 90;
         $selectableCount    = 6;
        }
-      
+
        $availableSelectableArray[] = $availableNumbers;
        $availableSelectableArray[] = $selectableCount;
 
@@ -48,12 +48,12 @@
         return $array;
     }
 
-    
+
     function raffle($drawNumbers, $drawCount, $iterations) {
-        
+
         $drawArray = create_raffle_box($drawNumbers);
         $results = [];
-    
+
         for($i = 1; $i <= $iterations; $i++){
             $raffle_box = $drawArray;
             $draw = [];
@@ -70,7 +70,7 @@
         }
 
         return $results;
-     
+
     }
 
     function count_Hits($picks, $results, $iterations) {
@@ -96,7 +96,7 @@
     }
 
     #function excel_export($results, $hits, $victoryState, $iterations){
-    #    for 
+    #    for
     #}
 
     #Form Handling
@@ -105,13 +105,13 @@
         if (isset($_POST["country"]) && isset($_POST["numbers"]) && isset($_POST["draws"])){
 
             global $results, $hits, $victoryState;
-            
+
             $countryNumbers = numbers_per_country($_POST["country"]);
             $picks          = explode(",", $_POST["numbers"]);
             $iterations     = $_POST["draws"];
             $drawNumbers    = $countryNumbers[0];
             $drawCount      = $countryNumbers[1];
-            
+
             # Correlating Numbers at the same Index
             $results        = raffle($drawNumbers, $drawCount, $_POST["draws"]);
             $hits           = count_Hits($picks, $results, $iterations);
@@ -168,22 +168,25 @@
         <div class="tab">
             <button class="tablinks" onclick="openTab(event, 'Statistik')" id="defaultOpen">Statistische
                 Auswertung</button>
-            <button class="tablinks" onclick="openTab(event, 'Daten')">Meine Daten</button>
+            <button class="tablinks" onclick="openTab(event, 'Daten')">Zusammenfassung</button>
             <button class="tablinks" onclick="openTab(event, 'Graph')">Graphische Auswertung</button>
 
         </div>
 
         <div id="Daten" class="tabcontent">
-            <h3>Deine Daten</h3>
+            <h3>Zusammenfassung</h3>
             <p>-Lottozahlen</p>
+            <p>-Anzahl würfe</p>
             <p>-Land</p>
-            <p>-Wie oft ausgewählt</p>
+            <p>-Gewonnen:</p>
+            <p>-Verloren:</p>
+            <p>Wenn anzahl 1, dann anders!</p>
 
         </div>
 
         <div id="Graph" class="tabcontent">
             <h3>Grapische Auswertung</h3>
-            <p>Graph einbauen</p>
+            <p>Graph einbauen als Balkendiagram: - Gewonnen und verloren - Gewinne verluste pro zahl -</p>
             <div id="chart_div"></div>
 
 
@@ -192,6 +195,8 @@
         <div id="Statistik" class="tabcontent">
             <h3>Statistische Auswertung</h3>
             <p>Zahlen</p>
+            <input type="button" name="" value="Als Excel exportieren">
+            
         </div>
 
 
