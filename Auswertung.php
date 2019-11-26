@@ -1,63 +1,125 @@
 <html>
 <head>
-    <?php ini_set('memory_limit', '2048M');
+<?php 
+    # Setting available RAM for calculations to 2GB 
+    ini_set('memory_limit', '1024M');
+
+    $results        = [];
+    $hits           = [];
+    $victoryState   = [];
     
     function numbers_per_country($country) {
-      $length = 0;
-      $array = [];
+      $availableNumbers = 0;
+      $selectableCount = 0;
+      $availableSelectableArray = [];
       
-      # Zahlen der Ziehung definieren
-      if($country == "de"){
-        $length = 49;
-       } elseif($country == "be"){
-        $length = 45;
-       } elseif($country == "dk"){
-        $length = 36;
-       } elseif($country == "us"){
-        $length = 69;
-       } elseif($country == "it"){
-        $length = 90;
+      # Defining available and selectable count of numbers
+      if ($country == "de"){
+        $availableNumbers   = 49;
+        $selectableCount    = 6;
+       } elseif ($country == "be"){
+        $availableNumbers   = 45;
+        $selectableCount    = 6;
+       } elseif ($country == "dk"){
+        $availableNumbers   = 36;
+        $selectableCount    = 7;
+       } elseif ($country == "us"){
+        $availableNumbers   = 69;
+        $selectableCount    = 5;
+       } elseif ($country == "it"){
+        $availableNumbers   = 90;
+        $selectableCount    = 6;
        }
       
-      # Zahlen der Ziehung in Array füllen
-      for($i=0; $i<$length; $i++) {
-         $array[$i] = $i+1;
-       }
-      
-      return $array;
+       $availableSelectableArray[] = $availableNumbers;
+       $availableSelectableArray[] = $selectableCount;
+
+      return $availableSelectableArray;
     }
-    
-    function draw($country = "it", $picks = ["1","2","3","4","5","6"], $draws = 10) {
-      $numbers = numbers_per_country($country);
-      $wins = 0;
-      $draw_numbers = [];
-      $results = [];
-    
-      for($i = 1; $i <= $draws; $i++){
-        $frame = $numbers;
-        $draw = [];
-        for($j = 0; $j < count($picks); $j++) {
-          $number = rand(0, count($frame)-1);
-          $draw[$j] = $frame[$number];
-          unset($frame[$number]);
-          $frame = array_values($frame);
-        }
-        if(count(array_diff($draw, $picks)) == 0){
-            $wins++;
-            $draw_numbers[] = $i;
-        }
-        $results[] = $draw;
-      }
-    
-      echo $wins;
-      print_r($draw_numbers);
+
+
+    function create_raffle_box($length){
+        $array = [];
+
+        for($i=0; $i<$length; $i++) {
+            $array[$i] = $i+1;
+          }
+
+        return $array;
     }
+
+    
+    function raffle($drawNumbers, $drawCount, $iterations) {
+        
+        $drawArray = create_raffle_box($drawNumbers);
+        $results = [];
+    
+        for($i = 1; $i <= $iterations; $i++){
+            $raffle_box = $drawArray;
+            $draw = [];
+
+            for($j = 0; $j < $drawCount; $j++) {
+                $number = rand(0, count($raffle_box)-1);
+                $draw[$j] = $raffle_box[$number];
+                unset($raffle_box[$number]);
+                $raffle_box = array_values($raffle_box);
+            }
+
+            $results[] = $draw;
+
+        }
+
+        return $results;
+     
+    }
+
+    function count_Hits($picks, $results, $iterations) {
+        $hits = [];
+
+        for ($i = 0; $i < $iterations; $i++){
+            $hits[] = count(array_intersect($picks, $results[$i]));
+        }
+
+        return $hits;
+    }
+
+    function define_lose_or_victory($arrayOfHits, $iterations, $drawCount){
+        $victoryState = [];
+
+        for ($i = 0; $i < $iterations; $i++){
+            if ($arrayOfHits[$i] == $drawCount) {
+                $victoryState[] = True;
+            } else {
+                $victoryState[] = False;
+            }
+        }
+    }
+
+    #function excel_export($results, $hits, $victoryState, $iterations){
+    #    for 
+    #}
 
     #Form Handling
+    function main(){
+        #Check if Params have values
+        if (isset($_POST["country"]) && isset($_POST["numbers"]) && isset($_POST["draws"])){
+            
+            $countryNumbers = numbers_per_country($_POST["country"]);
+            $picks          = explode(",", $_POST["numbers"]);
+            $iterations     = $_POST["draws"];
+            $drawNumbers    = $countryNumbers[0];
+            $drawCount      = $countryNumbers[1];
+            
+            # Correlating Numbers at the same Index
+            global $results        = raffle($drawNumbers, $drawCount, $_POST["draws"]);
+            global $hits           = count_Hits($picks, $results, $iterations);
+            global $victoryState   = define_lose_or_victory($hits, $iterations, $drawCount);
 
-    draw($_POST["country"],
-         $array = explode(",", $_POST["numbers"]),
-         $_POST["draws"]);
+        }
+
+    }
+
+    main();
     ?>
     <title>Auswertung</title>
     <link rel="stylesheet" href="style.css">
