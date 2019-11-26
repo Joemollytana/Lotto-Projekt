@@ -85,37 +85,23 @@
     <!-- 1 Land und Anzahl als Input Type Hidden?
          2 Name und ID angleichen
     -->
-    
+
 
     <form method="POST" action="Auswertung.php" id="choice">
       <div id="form_box1">
 
-        <ul>
+
           <li>Finale Zahlen: <input type="text" id="finalNumbers" name="Numbers" value="" required>
           </li>
-          <input type="hidden" id="finalDraw" name="draws" value="" required >
 
-        </ul>
-        <!--=======
-          Finale Zahlen: <input type="text" id="finalNumbers"
-                                name="numbers" value="" readonly required>
-          <br>
-          Anzahl Lottoziehungen: <input type="number" id="finalDraw" name="draws" value="" readonly required>
-          <br>
-          >>>>>>> 0f6849882d263a4c30c0a2a048c9f374331b4824
-        </form>-->
       </div>
-      <div id="form_box2">
-        <!--<form method="POST" action="Auswertung.php">-->
-        <ul>
-          <input type="hidden" id="finalCountry" name="country" value="" readonly required>
 
-        </ul>
-      </div>
 
       <!--</div>-->
       <div id="Senden">
         <input type="submit" id="Senden" value="Bestätigen und Senden">
+        <input type="hidden" id="finalCountry" name="country" value="" readonly required>
+        <input type="hidden" id="finalDraw" name="draws" value="" required >
       </div>
     </form>
     <!--</div>-->
