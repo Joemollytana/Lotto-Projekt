@@ -81,7 +81,7 @@
         $hits = [];
 
         for ($i = 0; $i < $iterations; $i++){
-            $hits[] = array_intersect($picks, $results[$i]);
+            $hits[] = count(array_intersect($picks, $results[$i]));
         }
 
         return $hits;
@@ -91,7 +91,7 @@
         $misses = [];
 
         for ($i = 0; $i < $iterations; $i++){
-            $misses[] = array_diff($picks, $results[$i]);
+            $misses[] = count(array_diff($picks, $results[$i]));
         }
 
         return $misses;
