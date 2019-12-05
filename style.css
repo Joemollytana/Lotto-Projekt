@@ -1,3 +1,7 @@
+* {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
 body {
   margin: auto;
 }
@@ -49,7 +53,7 @@ main {
 }
 
 #Senden {
-  align-self: flex-end;
+  /*align-self: flex-end;*/
 }
 #Senden input {
   background-color: #db0202;
@@ -60,7 +64,7 @@ main {
   transition: 0.5s;
   font-weight: bold;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-  width: 100%
+  width: 250px;
 }
 #Senden input:hover {
   background-color: #ff2f2f;
@@ -257,15 +261,15 @@ footer {
 /*############################################################################*/
 
  #choice {
-  display: flex;
+  /*display: flex;
   flex-direction: row;
-  flex-wrap: wrap;
+  flex-wrap: wrap;*/
   margin: auto;
-  margin-bottom: 35px;
+  /*margin-bottom: 35px;*/
   width: 70%;
-  justify-content: center;
+  /*justify-content: center;*/
 }
-#form_box1 {
+/*#form_box1 {
   order: 0;
   flex-grow: 1;
   text-align: left;
@@ -276,7 +280,7 @@ footer {
 #form_box2 {
   order: 1;
   flex-grow: 1;
-}
+}*/
 
 /*############################################################################*/
 
@@ -302,10 +306,22 @@ input::-webkit-inner-spin-button {
 /*Das gleiche für Firefox*/
 input[type=number] {
     -moz-appearance:textfield;
+    background-color: rgba(252, 255, 130, 0.95);
+    padding: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    border: 1px solid rgba(252, 255, 110, 0.95);
+    border-radius: 5px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    margin-left: 15px;
 }
 
 ul {
   list-style: none;
   padding-left: 0px;
   margin-left: 0px;
+}
+
+li {
+  list-style: none;
 }
