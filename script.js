@@ -37,7 +37,7 @@ function checkAge() {
 
   } else if (year - inputYear == 17) {
     if (month > inputMonth) {
-      window.location.href = "^hauptseite.html"
+      window.location.href = "hauptseite.html"
 
     } else {
       alert("Sie sind unter 18! Sie werden zu google.de weitergeleitet.");
