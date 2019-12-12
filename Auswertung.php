@@ -198,15 +198,16 @@
 
     <title>Auswertung</title>
     <link rel="stylesheet" href="style.css">
+    <!--
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript" src="https://www.google.com/jsapi"></script>
     <script type="text/javascript">
 
 
-      var results = <?php echo $results; ?>;              /*[[1, 2, 3, 4, 5, 6]]*/
-      var hits = <?php echo $hits; ?>;                    //[1]
-      var misses = <?php echo $misses; ?>;                //[5]
-      var victoryState = <?php echo $victoryState; ?>;    //[0]
+      var results = <?php echo $results; ?>;              // [[1, 2, 3, 4, 5, 6]]
+      var hits = <?php echo $hits; ?>;                    // [1]
+      var misses = <?php echo $misses; ?>;                // [5]
+      var victoryState = <?php echo $victoryState; ?>;    // [0]
 
       google.charts.load('current', {'packages':['bar']});
       google.charts.setOnLoadCallback(drawChart);
@@ -220,10 +221,10 @@
 
         var options = {
           chart: {
-            title: 'Company Performance',
-            subtitle: 'Sales, Expenses, and Profit: 2014-2017',
-            'height': 800,
-            'width': 400,
+            title: 'Lotto Auswertung',
+            subtitle: 'Welche Zahlen haben wie oft gewonnen',
+            'height': 800px,
+            'width': 400px,
             "chartArea": {
               "width":'100%',
               "height":'100%'
@@ -235,7 +236,8 @@
 
         chart.draw(data, google.charts.Bar.convertOptions(options));
       }
-    </script>
+    </script>-->
+
     <script type="text/javascript" src="script.js"></script>
     <!--<script type="text/javascript">
         google.charts.load('current', { 'packages': ['corechart'] });
@@ -298,7 +300,10 @@
         <div id="Graph" class="tabcontent">
             <h3>Grapische Auswertung</h3>
             <p>Graph einbauen als Balkendiagram: - Gewonnen und verloren - Gewinne verluste pro zahl -</p>
-            <div id="columnchart_wins_per_num" style="width: 800px; height: 400px;"></div>
+            <!--<div id="columnchart_wins_per_num" style="width: 800px; height: 400px;"></div>-->
+            <iframe src="graph.html" width="100%" height="500" scrolling="no"
+                    frameborder="0" seamless>
+            </iframe>
 
 
         </div>
