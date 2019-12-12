@@ -9,10 +9,23 @@
     // use PhpOffice\PhpSpreadsheet\Spreadsheet;
     // use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
+    # Array of Result-Arrays
     $results        = [];
+
+    # Array of number of hits
     $hits           = [];
+
+    # Array of number of misses
     $misses         = [];
+
+    # Array of statements about victory
     $victoryState   = [];
+
+    # Array of number occurences
+    $occurences     = [];
+
+    # Array of available and selectable country numbers
+    $countryNumbers = [0, 0];
 
     function numbers_per_country($country) {
       $availableNumbers = 0;
@@ -116,15 +129,16 @@
         #Check if Params have values
         if (isset($_POST["country"]) && isset($_POST["numbers"]) && isset($_POST["draws"])){
 
-            global $results, $hits, $misses, $victoryState;
+            global $results, $hits, $misses, $victoryState, $countryNumbers;
 
+            # Formatting inputs
             $countryNumbers = numbers_per_country($_POST["country"]);
             $picks          = explode(",", $_POST["numbers"]);
             $iterations     = $_POST["draws"];
             $drawNumbers    = $countryNumbers[0];
             $drawCount      = $countryNumbers[1];
 
-            # Correlating Numbers at the same Index
+            # Filling global variables
             $results        = raffle($drawNumbers, $drawCount, $iterations);
             $hits           = count_Hits($picks, $results, $iterations);
             $misses         = count_Misses($picks, $results, $iterations);
