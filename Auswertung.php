@@ -201,6 +201,13 @@
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript" src="https://www.google.com/jsapi"></script>
     <script type="text/javascript">
+
+
+      var results = <?php echo $results; ?>;              /*[[1, 2, 3, 4, 5, 6]]*/
+      var hits = <?php echo $hits; ?>;                    //[1]
+      var misses = <?php echo $misses; ?>;                //[5]
+      var victoryState = <?php echo $victoryState; ?>;    //[0]
+
       google.charts.load('current', {'packages':['bar']});
       google.charts.setOnLoadCallback(drawChart);
 
