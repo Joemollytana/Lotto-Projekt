@@ -78,14 +78,17 @@
             for($j = 0; $j < $drawCount; $j++) {
                 $number = rand(0, count($raffle_box)-1);
                 $draw[$j] = $raffle_box[$number];
+                $occurences[$number - 1]++;
+
+                # adjust raffle box array for drawn numbers
                 unset($raffle_box[$number]);
                 $raffle_box = array_values($raffle_box);
             }
 
-            if ($iterations > 1){
-                $draw = sort($draw);
-            }
-            $results[] = $draw;
+            //if ($iterations > 1){
+            //    $draw = sort($draw);
+            //}
+            $results[] = sort($draw);
         }
         return $results;
     }
@@ -129,7 +132,7 @@
         #Check if Params have values
         if (isset($_POST["country"]) && isset($_POST["numbers"]) && isset($_POST["draws"])){
 
-            global $results, $hits, $misses, $victoryState, $countryNumbers;
+            global $results, $hits, $misses, $victoryState, $occurences, $countryNumbers;
 
             # Formatting inputs
             $countryNumbers = numbers_per_country($_POST["country"]);
@@ -137,6 +140,9 @@
             $iterations     = $_POST["draws"];
             $drawNumbers    = $countryNumbers[0];
             $drawCount      = $countryNumbers[1];
+
+            # Starting: Occurences of every number = 0
+            $occurences     = array_fill(0, $drawNumbers, 0);
 
             # Filling global variables
             $results        = raffle($drawNumbers, $drawCount, $iterations);
@@ -192,23 +198,9 @@
     // }
 
     main();
-
-    #Test
-    #$countryNumbers = numbers_per_country("dk");
-    #$picks          = explode(",", "2,3,4,5,6,7,8");
-    #$iterations     = "1";
-    #$drawNumbers    = $countryNumbers[0];
-    #$drawCount      = $countryNumbers[1];
-    #
-    ## Correlating Numbers at the same Index
-    #$results        = raffle($drawNumbers, $drawCount,  $iterations);
-    #$hits           = count_Hits($picks, $results, $iterations);
-    #$victoryState   = define_lose_or_victory($hits, $iterations, $drawCount);
-    #
-    #print_r($results);
-    #print_r($hits);
-    #print_r($victoryState);
     ?>
+
+
 
     <title>Auswertung</title>
     <link rel="stylesheet" href="style.css">
