@@ -4,6 +4,11 @@
     # Setting available RAM for calculations to 2GB
     ini_set('memory_limit', '1024M');
 
+    #Excel-Export: Dependencies
+    require 'vendor/autoload.php';
+    use PhpOffice\PhpSpreadsheet\Spreadsheet;
+    use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+
     $results        = [];
     $hits           = [];
     $misses         = [];
@@ -106,10 +111,6 @@
         return $victoryState;
     }
 
-    #function excel_export($results, $hits, $victoryState, $iterations){
-    #    for
-    #}
-
     #Form Handling
     function main(){
         #Check if Params have values
@@ -129,6 +130,51 @@
             $misses         = count_Misses($picks, $results, $iterations);
             $victoryState   = define_lose_or_victory($hits, $iterations, $drawCount);
         }
+    }
+
+    #Excel-Export: Function
+    function excel_export($results, $hits, $misses, $victoryState, $iterations, $drawCount){
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+    
+        # Description of input parameters
+        $summary = ['Lotto-Projekt', 'Zahlen', 'Land', 'Ziehungen'];
+        $summaryColumn = array_chunk($summary, 1);
+        $sheet->fromArray($summaryColumn, NULL, 'A1');
+    
+        # Description of table
+        $tableTitle = ["Nr.", NULL]
+        $emptyRow = [NULL, NULL, NULL, NULL, NULL];
+        for($x = 1; $x < $drawCount; $x++){
+            $tableTitle[] = $x." Zahl";
+            $emptyRow[] = NULL;
+        }
+        $tableTitle[] = NULL;
+        $tableTitle[] = "Treffer";
+        $tableTitle[] = "Nieten";
+    
+        # Add Title Row to rowArray
+        $rowArray[] = $tableTitle;
+    
+        # Design: One free row after title
+        $rowArray[] = $emptyRow;
+    
+        # Listing of draws
+        for($i = 0; $i < $iterations; $i++){
+            $row = [$i, NULL];
+            for($j = 0; $j < $drawCount; $j++){
+                $row[] = $results[$i][$j];
+            }
+            $row[] = NULL;
+            $row[] = $hits[$i];
+            $row[] = $misses[$i];
+            $rowArray[] = $row; 
+        }
+        $sheet->fromArray($rowArray, NULL, 'D2');
+    
+    
+        $writer = new Xlsx($spreadsheet);
+        $writer->save('Lotto_Auswertung.xlsx');
     }
 
     main();
@@ -223,10 +269,6 @@
 <body id="result">
 
     <main id=main>
-    <?php
-    print_r($results);
-    print_r($hits);
-    ?>
         <div class="tab">
             <button class="tablinks" onclick="openTab(event, 'Statistik')" id="defaultOpen">Statistische
                 Auswertung</button>
