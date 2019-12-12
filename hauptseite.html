@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+
+<html lang="de">
+
+<head>
+  <meta charset="utf-8">
+  <title>Lotto_Seite</title>
+  <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+
+
+<!--<br>-->
+<script src="script.js"></script>
+
+<body id="mainpage" onload="startUp()">
+  <header>
+    <h1>Dein Lotto zum Glück!</h1>
+    <input type="button" onclick="openNav()" value="Regelwerk">
+    <div id="mySidenav" class="sidenav" style="width: 0px;">
+      <a src="script.js" class="closebtn" onclick="closeNav()">&times;</a>
+      <a href="https://de.wikipedia.org/wiki/Lotto#6_aus_49_in_Deutschland" target="_blank">Deutschland</a>
+      <a href="https://de.wikipedia.org/wiki/Lotto#6_aus_45_in_Österreich" target="_blank">Belgien</a>
+      <a href="https://www.euro-jackpot.net/daenisches-lotto" target="_blank">Dänemark</a>
+      <a href="https://en.wikipedia.org/wiki/Powerball#Playing_the_game" target="_blank">USA</a>
+      <a href="https://de.wikipedia.org/wiki/Lotto#6_aus_90_in_Italien" target="_blank">Italien</a>
+    </div>
+  </header>
+
+  <main id="main">
+    <div id="buttons">
+      <input type="button" class="countryBtn active" value="Deutschland" onclick="showStuff('de')">
+      <input type="button" class="countryBtn" value="Belgien" onclick="showStuff('be')">
+      <input type="button" class="countryBtn" value="Dänemark" onclick="showStuff('dk')">
+      <input type="button" class="countryBtn" value="USA" onclick="showStuff('us')">
+      <input type="button" class="countryBtn" value="Italien" onclick="showStuff('it')">
+    </div>
+    <br>
+
+    <!-- Anstelle einzelner Divs könnten mehrere Spans verwendet werden um Redundanten Text zu Kürzen, e.g.:
+        <div class"numbers">
+            <h2> Trage eine Zahl ein von <span id="de"> 0 bis 49 <span> <span id="dk"> 0 bis 36 <span>
+        <div>
+
+        Oder mit JS:
+            Span.innerhtml nach function setzen
+
+
+    Außerdem: Anzahl verfügbarer Zahlen
+    -->
+
+    <div id="de" class="numbers">
+      <h2>Trage eine Zahl ein von 0 bis 49</h2>
+    </div>
+
+    <div id="be" class="numbers" style="display: none;">
+      <h2>Trage eine Zahl ein von 0 bis 45</h2>
+    </div>
+
+    <div id="dk" class="numbers" style="display: none;">
+      <h2>Trage eine Zahl ein von 0 bis 36</h2>
+
+    </div>
+
+    <div id="us" class="numbers" style="display: none;">
+      <h2>Trage eine Zahl ein von 0 bis 69</h2>
+
+    </div>
+
+    <div id="it" class="numbers" style="display: none;">
+      <h2>Trage eine Zahl ein von 0 bis 90</h2>
+
+    </div>
+
+    <br>
+    <div>
+      <h2>Wie viele Lottoziehungen?</h2>
+      <div class="slidecontainer">
+        <input type="range" name="Ziehungen" class="slider" id="count" min="1" max="1000000" step="1" value="1" oninput="refreshCounter()">
+        Wert: <input type="number" id="countwert" value="" max="1000000" min="1" required>
+      </div>
+    </div>
+    <br>
+    <!--<div>-->
+
+    <!-- 1 Land und Anzahl als Input Type Hidden?
+         2 Name und ID angleichen
+    -->
+
+    <h2>Deine Daten: </h2>
+    <form method="POST" action="Auswertung.php" id="choice">
+      <!--<div id="form_box1">-->
+
+
+          <li>Finale Zahlen: <input type="text" id="finalNumbers" name="Numbers" value="" required>
+          </li>
+
+      <!--</div>-->
+      <br> 
+
+
+      <!--</div>-->
+      <div id="Senden">
+        <input type="submit" id="Senden" value="Bestätigen und Senden">
+        <input type="hidden" id="finalCountry" name="country" value="" readonly required>
+        <input type="hidden" id="finalDraw" name="draws" value="" required >
+      </div>
+    </form>
+    <!--</div>-->
+  </main>
+  <footer>
+    <div>
+      Trotz sorgfältiger inhaltlicher Kontrolle übernimmt die Lotto-DHBW-VS keine Haftung für die Inhalte
+      externer Links. Für den Inhalt der verlinkten Seiten sind ausschließlich deren Betreiber verantwortlich.
+      Es werden keine Zusicherungen abgegeben und keinerlei Gewährleistung und Haftung für die Richtigkeit der
+      bereitgestellten Informationen übernommen. Spielen mit Verantwortung. Spielteilnahme ab 18 Jahren. Glücksspiel
+      kann süchtig machen. Mehr Infos unter: www.spielen-mit-verantwortung.de
+    </div>
+  </footer>
+</body>
+
+</html>

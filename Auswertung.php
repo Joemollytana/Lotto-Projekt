@@ -136,12 +136,12 @@
     function excel_export($results, $hits, $misses, $victoryState, $iterations, $drawCount){
         $spreadsheet = new Spreadsheet();
         $sheet = $spreadsheet->getActiveSheet();
-    
+
         # Description of input parameters
         $summary = ['Lotto-Projekt', 'Zahlen', 'Land', 'Ziehungen'];
         $summaryColumn = array_chunk($summary, 1);
         $sheet->fromArray($summaryColumn, NULL, 'A1');
-    
+
         # Description of table
         $tableTitle = ["Nr.", NULL]
         $emptyRow = [NULL, NULL, NULL, NULL, NULL];
@@ -152,13 +152,13 @@
         $tableTitle[] = NULL;
         $tableTitle[] = "Treffer";
         $tableTitle[] = "Nieten";
-    
+
         # Add Title Row to rowArray
         $rowArray[] = $tableTitle;
-    
+
         # Design: One free row after title
         $rowArray[] = $emptyRow;
-    
+
         # Listing of draws
         for($i = 0; $i < $iterations; $i++){
             $row = [$i, NULL];
@@ -168,11 +168,11 @@
             $row[] = NULL;
             $row[] = $hits[$i];
             $row[] = $misses[$i];
-            $rowArray[] = $row; 
+            $rowArray[] = $row;
         }
         $sheet->fromArray($rowArray, NULL, 'D2');
-    
-    
+
+
         $writer = new Xlsx($spreadsheet);
         $writer->save('Lotto_Auswertung.xlsx');
     }
@@ -259,7 +259,7 @@
 <header>
     <h1>Ergebnisse der Lottoziehung:</h1>
     <div>
-        <input type="button" value="Zurück zur Lottoziehung" onclick="location.href='index.html'">
+        <input type="button" value="Zurück zur Lottoziehung" onclick="location.href='hauptseite.html'">
 
     </div>
 </header>

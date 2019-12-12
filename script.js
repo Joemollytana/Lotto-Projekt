@@ -33,11 +33,11 @@ function checkAge() {
   var inputYear = inputYearFull.value;
 
   if (year - inputYear > 18) {
-    window.location.href = "index.html"
+    window.location.href = "hauptseite.html"
 
   } else if (year - inputYear == 17) {
     if (month > inputMonth) {
-      window.location.href = "index.html"
+      window.location.href = "^hauptseite.html"
 
     } else {
       alert("Sie sind unter 18! Sie werden zu google.de weitergeleitet.");
