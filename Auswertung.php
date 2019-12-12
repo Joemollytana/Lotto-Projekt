@@ -255,6 +255,12 @@
         </div>
 
         <div id="Statistik" class="tabcontent">
+          <table style="width:100%">
+            <tr>
+              <th>Penis</th>
+            </tr>
+
+          </table>
             <h3>Statistische Auswertung</h3>
             <p>Zahlen</p>
             <input type="button" name="" value="Als Excel exportieren">
