@@ -215,7 +215,7 @@
           chart: {
             title: 'Company Performance',
             subtitle: 'Sales, Expenses, and Profit: 2014-2017',
-            'height': 500,
+            'height': 800,
             'width': 400,
             "chartArea": {
               "width":'100%',
