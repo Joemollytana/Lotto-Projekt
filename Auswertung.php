@@ -169,7 +169,7 @@
           chart: {
             title: 'Company Performance',
             subtitle: 'Sales, Expenses, and Profit: 2014-2017',
-            'height': 500,
+            'height': 800,
             'width': 400,
             "chartArea": {
               "width":'100%',
@@ -223,10 +223,6 @@
 <body id="result">
 
     <main id=main>
-    <?php
-    print_r($results);
-    print_r($hits);
-    ?>
         <div class="tab">
             <button class="tablinks" onclick="openTab(event, 'Statistik')" id="defaultOpen">Statistische
                 Auswertung</button>
