@@ -1,10 +1,55 @@
 //
+function checkInputMonth() {
+  var inputMonthFull = document.getElementById("month");
+  var inputYearFull = document.getElementById("year");
+
+  if (inputMonthFull.value != "" && inputYearFull.value != ""){
+    document.getElementById("age").disabled = false;
+  } else {
+    document.getElementById("age").disabled = true;
+  }
+}
+//
+function checkInputYear() {
+  var inputMonthFull = document.getElementById("month");
+  var inputYearFull = document.getElementById("year");
+
+  if (inputMonthFull.value != "" && inputYearFull.value != ""){
+    document.getElementById("age").disabled = false;
+  } else {
+    document.getElementById("age").disabled = true;
+  }
+}
+//
 function checkAge() {
-  var age = document.getElementById("datecheck").value;
-  var today = Date.now(year, month, day);
-  if (today-age < 18) {
-    alert("Minderjährig!")
-  } else {}
+
+  var d = new Date();
+  var month = d.getMonth() + 1;
+  var inputMonthFull = document.getElementById("month");
+  var inputMonth = inputMonthFull.value;
+
+  var year = d.getFullYear();
+  var inputYearFull = document.getElementById("year");
+  var inputYear = inputYearFull.value;
+
+  if (year - inputYear > 18) {
+    window.location.href = "index.html"
+
+  } else if (year - inputYear == 17) {
+    if (month > inputMonth) {
+      window.location.href = "index.html"
+
+    } else {
+      alert("Sie sind unter 18! Sie werden zu google.de weitergeleitet.");
+      window.location.href = "https://www.google.de/";
+
+    }
+
+  } else {
+    alert("Sie sind unter 18! Sie werden zu google.de weitergeleitet.");
+    window.location.href = "https://www.google.de/";
+
+  }
 }
 //
 function startUp() {
@@ -170,3 +215,5 @@ function selectedNumber(i) {
     document.getElementById("finalNumbers").value = "";
   }
 }
+
+///////////////////////////////////////////////////////////////////////////////

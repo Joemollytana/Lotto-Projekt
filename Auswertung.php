@@ -199,7 +199,38 @@
     <title>Auswertung</title>
     <link rel="stylesheet" href="style.css">
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
     <script type="text/javascript">
+      google.charts.load('current', {'packages':['bar']});
+      google.charts.setOnLoadCallback(drawChart);
+
+      var bspArray1 = [['Sales', 'Expenses', 'Profit'],[20, 30, 40],[20, 30, 40],[20, 30, 40],[20, 30, 40]];
+
+
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable(
+          bspArray1);
+
+        var options = {
+          chart: {
+            title: 'Company Performance',
+            subtitle: 'Sales, Expenses, and Profit: 2014-2017',
+            'height': 500,
+            'width': 400,
+            "chartArea": {
+              "width":'100%',
+              "height":'100%'
+            }
+          }
+        };
+
+        var chart = new google.charts.Bar(document.getElementById('columnchart_wins_per_num'));
+
+        chart.draw(data, google.charts.Bar.convertOptions(options));
+      }
+    </script>
+    <script type="text/javascript" src="script.js"></script>
+    <!--<script type="text/javascript">
         google.charts.load('current', { 'packages': ['corechart'] });
         google.charts.setOnLoadCallback(drawChart);
         function drawChart() {
@@ -223,7 +254,7 @@
             var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
             chart.draw(data, options);
         }
-    </script>
+    </script>-->
 </head>
 <header>
     <h1>Ergebnisse der Lottoziehung:</h1>
@@ -260,12 +291,18 @@
         <div id="Graph" class="tabcontent">
             <h3>Grapische Auswertung</h3>
             <p>Graph einbauen als Balkendiagram: - Gewonnen und verloren - Gewinne verluste pro zahl -</p>
-            <div id="chart_div"></div>
+            <div id="columnchart_wins_per_num" style="width: 800px; height: 400px;"></div>
 
 
         </div>
 
         <div id="Statistik" class="tabcontent">
+          <table style="width:100%">
+            <tr>
+              <th>Penis</th>
+            </tr>
+
+          </table>
             <h3>Statistische Auswertung</h3>
             <p>Zahlen</p>
             <input type="button" name="" value="Als Excel exportieren">
@@ -283,6 +320,7 @@
         bereitgestellten Informationen übernommen. Spielen mit Verantwortung. Spielteilnahme ab 18 Jahren. Glücksspiel
         kann süchtig machen. Mehr Infos unter: www.spielen-mit-verantwortung.de
     </div>
+
 </footer>
 <script src="script.js"></script>
 <script> document.getElementById("defaultOpen").click()</script>
