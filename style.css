@@ -1,5 +1,5 @@
 * {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: 'Segoe UI',sans-serif;
 }
 
 body {
@@ -52,9 +52,10 @@ main {
   animation: fadeEffect 1s;
 }
 
-#Senden {
-  /*align-self: flex-end;*/
-}
+/*#Senden {
+  /*align-self: flex-end;
+}*/
+
 #Senden input {
   background-color: #db0202;
   padding: 10px 16px;
@@ -80,7 +81,6 @@ header {
   background-color: white;
   overflow: hidden;
   text-align: center;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   color: white;
   box-shadow: 1px 1px 20px rgba(0, 0, 0, 0.301);
   padding: 2px 0px 15px;

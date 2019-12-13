@@ -21,8 +21,8 @@
     # Array of statements about victory
     $victoryState   = [];
 
-    # Array of number occurences
-    $occurences     = [];
+    # Array of number occurrences
+    $occurrences     = [];
 
     # Array of available and selectable country numbers
     $countryNumbers = [0, 0];
@@ -68,6 +68,8 @@
 
     function raffle($drawNumbers, $drawCount, $iterations) {
 
+        global $occurrences;
+
         $drawArray = create_raffle_box($drawNumbers);
         $results = [];
 
@@ -78,17 +80,15 @@
             for($j = 0; $j < $drawCount; $j++) {
                 $number = rand(0, count($raffle_box)-1);
                 $draw[$j] = $raffle_box[$number];
-                $occurences[$number - 1]++;
+                $occurrences[$number - 1]++;
 
                 # adjust raffle box array for drawn numbers
                 unset($raffle_box[$number]);
                 $raffle_box = array_values($raffle_box);
             }
 
-            //if ($iterations > 1){
-            //    $draw = sort($draw);
-            //}
-            $results[] = sort($draw);
+            sort($draw);
+            $results[] = $draw;
         }
         return $results;
     }
@@ -130,20 +130,19 @@
     #Form Handling
     function main(){
         #Check if Params have values
-        if (isset($_POST["country"]) && isset($_POST["numbers"]) && isset($_POST["draws"])){
+        if (isset($_GET["numbers"]) && isset($_GET["country"]) && isset($_GET["draws"])){
 
-            global $results, $hits, $misses, $victoryState, $occurences, $countryNumbers;
+            global $results, $hits, $misses, $victoryState, $occurrences, $countryNumbers;
 
             # Formatting inputs
-            $countryNumbers = numbers_per_country($_POST["country"]);
-            $picks          = explode(",", $_POST["numbers"]);
-            $iterations     = $_POST["draws"];
+            $countryNumbers = numbers_per_country($_GET["country"]);
+            $picks          = explode(",", $_GET["numbers"]);
+            $iterations     = $_GET["draws"];
             $drawNumbers    = $countryNumbers[0];
             $drawCount      = $countryNumbers[1];
 
-            # Starting: Occurences of every number = 0
-            $occurences     = array_fill(0, $drawNumbers, 0);
-
+            # Starting: Occurrences of every number = 0
+            $occurrences     = array_fill(0, $drawNumbers, 0);
             # Filling global variables
             $results        = raffle($drawNumbers, $drawCount, $iterations);
             $hits           = count_Hits($picks, $results, $iterations);
@@ -197,7 +196,7 @@
     //     $writer->save('Lotto_Auswertung.xlsx');
     // }
 
-    main();
+   main();
     ?>
 
 
@@ -210,10 +209,10 @@
     <script type="text/javascript">
 
 
-      var results = <?php echo $results; ?>;              // [[1, 2, 3, 4, 5, 6]]
-      var hits = <?php echo $hits; ?>;                    // [1]
-      var misses = <?php echo $misses; ?>;                // [5]
-      var victoryState = <?php echo $victoryState; ?>;    // [0]
+      var results = <?php //echo $results; ?>;              // [[1, 2, 3, 4, 5, 6]]
+      var hits = <?php //echo $hits; ?>;                    // [1]
+      var misses = <?php //echo $misses; ?>;                // [5]
+      var victoryState = <?php //echo $victoryState; ?>;    // [0]
 
       google.charts.load('current', {'packages':['bar']});
       google.charts.setOnLoadCallback(drawChart);
@@ -317,13 +316,72 @@
         <div id="Statistik" class="tabcontent">
           <table style="width:100%">
             <tr>
-              <th>Penis</th>
+              <th>nix</th>
             </tr>
 
           </table>
             <h3>Statistische Auswertung</h3>
             <p>Zahlen</p>
-            <input type="button" name="" value="Als Excel exportieren">
+            <table id="excelTable"></table>
+            <script>
+                // Source: https://www.codexworld.com/export-html-table-data-to-excel-using-javascript/
+                function exportTableToExcel(tableID, filename = ''){
+                    var downloadLink;
+                    var dataType = 'application/vnd.ms-excel';
+                    var tableSelect = document.getElementById(tableID);
+                    var tableHTML = tableSelect.outerHTML.replace(/ /g, '%20');
+                    
+                    // Specify file name
+                    filename = filename?filename+'.xls':'excel_data.xls';
+                    
+                    // Create download link element
+                    downloadLink = document.createElement("a");
+                    
+                    document.body.appendChild(downloadLink);
+                    
+                    if(navigator.msSaveOrOpenBlob){
+                        var blob = new Blob(['\ufeff', tableHTML], {
+                            type: dataType
+                        });
+                        navigator.msSaveOrOpenBlob( blob, filename);
+                    }else{
+                        // Create a link to the file
+                        downloadLink.href = 'data:' + dataType + ', ' + tableHTML;
+                    
+                        // Setting the file name
+                        downloadLink.download = filename;
+                        
+                        //triggering the function
+                        downloadLink.click();
+                    }
+                }
+
+                var table       = document.getElementById('excelTable');
+                var tableBody   = document.createElement('TBODY');
+                var heading     = new Array("Nr.", "Ziehung", "Treffer", "Daneben", "Resultat");
+
+                table.border = '1';
+                table.appendChild(tableBody);
+
+                // Heading
+                var tr = document.createElement('TR')
+                tableBody.appendChild(tr);
+                for(i = 0; i < heading.length; i++){
+                    var th = document.createElement('TH');
+                    th.width = "200";
+                    th.appendChild(document.createTextNode(heading[i]));
+                    tr.appendChild(th);
+                }
+
+            </script>
+            <style>
+                /* Hiding the statistical evaluation table used for excel export*/
+                table#excelTable {
+                    visibility: collapse;
+                }
+            </style>
+    
+            <button onclick="exportTableToExcel('excelTable', 'lotto_auswertung')">Statistische Auswertung in Excel</button>
 
         </div>
 
