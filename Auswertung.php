@@ -1,31 +1,25 @@
 <html>
 <head>
 <?php
-    # Setting available RAM for calculations to 1GB
-    ini_set('memory_limit', '1024M');
-
-    #Excel-Export: Dependencies
-    // require 'vendor/autoload.php';
-    // use PhpOffice\PhpSpreadsheet\Spreadsheet;
-    // use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
-
     # Array of Result-Arrays
     $results        = [];
-
     # Array of number of hits
     $hits           = [];
-
     # Array of number of misses
     $misses         = [];
-
     # Array of statements about victory
     $victoryState   = [];
-
     # Array of number occurrences
     $occurrences     = [];
-
     # Array of available and selectable country numbers
     $countryNumbers = [0, 0];
+
+    $picks          = 0;
+    $iterations     = 0;
+    $drawNumbers    = 0;
+    $drawCount      = 0;
+
+    $country        = "";
 
     function numbers_per_country($country) {
       $availableNumbers = 0;
@@ -132,10 +126,12 @@
         #Check if Params have values
         if (isset($_GET["numbers"]) && isset($_GET["country"]) && isset($_GET["draws"])){
 
-            global $results, $hits, $misses, $victoryState, $occurrences, $countryNumbers;
+            global $results, $hits, $misses, $victoryState, $occurrences, $country, $picks,
+                   $iterations, $drawNumbers, $drawCount;
 
             # Formatting inputs
-            $countryNumbers = numbers_per_country($_GET["country"]);
+            $country        = $_GET["country"];
+            $countryNumbers = numbers_per_country($country);
             $picks          = explode(",", $_GET["numbers"]);
             $iterations     = $_GET["draws"];
             $drawNumbers    = $countryNumbers[0];
@@ -148,60 +144,131 @@
             $hits           = count_Hits($picks, $results, $iterations);
             $misses         = count_Misses($picks, $results, $iterations);
             $victoryState   = define_lose_or_victory($hits, $iterations, $drawCount);
-            print_r($results);
-            print_r($occurrences);
         }
     }
-
-    #Excel-Export: Function
-    // function excel_export($results, $hits, $misses, $victoryState, $iterations, $drawCount){
-    //     $spreadsheet = new Spreadsheet();
-    //     $sheet = $spreadsheet->getActiveSheet();
-
-    //     # Description of input parameters
-    //     $summary = ['Lotto-Projekt', 'Zahlen', 'Land', 'Ziehungen'];
-    //     $summaryColumn = array_chunk($summary, 1);
-    //     $sheet->fromArray($summaryColumn, NULL, 'A1');
-
-    //     # Description of table
-    //     $tableTitle = ["Nr.", NULL]
-    //     $emptyRow = [NULL, NULL, NULL, NULL, NULL];
-    //     for($x = 1; $x < $drawCount; $x++){
-    //         $tableTitle[] = $x." Zahl";
-    //         $emptyRow[] = NULL;
-    //     }
-    //     $tableTitle[] = NULL;
-    //     $tableTitle[] = "Treffer";
-    //     $tableTitle[] = "Nieten";
-
-    //     # Add Title Row to rowArray
-    //     $rowArray[] = $tableTitle;
-
-    //     # Design: One free row after title
-    //     $rowArray[] = $emptyRow;
-
-    //     # Listing of draws
-    //     for($i = 0; $i < $iterations; $i++){
-    //         $row = [$i, NULL];
-    //         for($j = 0; $j < $drawCount; $j++){
-    //             $row[] = $results[$i][$j];
-    //         }
-    //         $row[] = NULL;
-    //         $row[] = $hits[$i];
-    //         $row[] = $misses[$i];
-    //         $rowArray[] = $row;
-    //     }
-    //     $sheet->fromArray($rowArray, NULL, 'D2');
-
-
-    //     $writer = new Xlsx($spreadsheet);
-    //     $writer->save('Lotto_Auswertung.xlsx');
-    // }
 
    main();
     ?>
 
+<table id="excelTable"></table>
+<script type="text/javascript">
 
+    // Array of Arrays
+    var results             = <?php echo json_encode($results); ?>;
+    var results_as_string   = <?php
+    
+    foreach($results as &$result){
+        $result = implode(", ", $result);
+    }
+    
+    echo json_encode($results);
+    
+    ?>;
+
+    // Arrays with correlating information at the same index
+    var hits            = <?php echo json_encode($hits) ?>;
+    var misses          = <?php echo json_encode($misses) ?>;
+    var victoryState    = <?php echo json_encode($victoryState) ?>;
+
+    // Arrays with no correlation thus different lengths
+    var occurrences     = <?php echo json_encode($occurrences) ?>;
+    var picks           = <?php echo json_encode($picks) ?>;
+
+    // Ints
+    var iterations      = <?php echo $iterations ?>;
+    var drawNumbers     = <?php echo $drawNumbers ?>;
+    var drawCount       = <?php echo $drawCount ?>;
+
+    // Strings
+    var country         = "<?php echo $country ?>";
+
+
+    console.log(results.toString())
+
+    // Source: https://www.codexworld.com/export-html-table-data-to-excel-using-javascript/
+    function exportTableToExcel(tableID, filename = ''){
+        var downloadLink;
+        var dataType = 'application/vnd.ms-excel';
+        var tableSelect = document.getElementById(tableID);
+        var tableHTML = tableSelect.outerHTML.replace(/ /g, '%20');
+        
+        // Specify file name
+        filename = filename?filename+'.xls':'excel_data.xls';
+        
+        // Create download link element
+        downloadLink = document.createElement("a");
+        
+        document.body.appendChild(downloadLink);
+        
+        if(navigator.msSaveOrOpenBlob){
+            var blob = new Blob(['\ufeff', tableHTML], {
+                type: dataType
+            });
+            navigator.msSaveOrOpenBlob( blob, filename);
+        }else{
+            // Create a link to the file
+            downloadLink.href = 'data:' + dataType + ', ' + tableHTML;
+        
+            // Setting the file name
+            downloadLink.download = filename;
+            
+            //triggering the function
+            downloadLink.click();
+        }
+    }
+
+    var table       = document.getElementById('excelTable');
+    var tableBody   = document.createElement('TBODY');
+    var heading     = new Array("Nr.", "Ziehung", "Treffer", "Daneben", "Resultat");
+
+    table.border = '1';
+    table.appendChild(tableBody);
+
+    // Header
+    var tr = document.createElement('TR');
+    tableBody.appendChild(tr);
+    for(i = 0; i < heading.length; i++){
+        var th = document.createElement('TH');
+        /*th.width = "200";*/
+        th.appendChild(document.createTextNode(heading[i]));
+        tr.appendChild(th);
+    }
+
+    // Rows
+    for(i = 0; i < results.length; i++){
+        var tr  = document.createElement('TR');
+
+       // Nr. / Result / Hits / Misses / Victory (y / n) 
+        var n   = document.createElement('TD');
+        var r   = document.createElement('TD');
+        var h   = document.createElement('TD');
+        var m   = document.createElement('TD');
+        var v   = document.createElement('TD');
+
+        n.appendChild(document.createTextNode(i + 1));
+        r.appendChild(document.createTextNode(results_as_string[i]));
+        h.appendChild(document.createTextNode(hits[i]));
+        m.appendChild(document.createTextNode(misses[i]));
+        v.appendChild(document.createTextNode(victoryState[i] == 0 ? "Verloren!" : "Gewonnen!"));
+
+
+        tr.appendChild(n);
+        tr.appendChild(r);
+        tr.appendChild(h);
+        tr.appendChild(m);
+        tr.appendChild(v);
+        
+       tableBody.appendChild(tr);
+    }
+    
+
+</script>
+<style>
+    /* Hiding the statistical evaluation table used for excel export*/
+    table#excelTable {
+        visibility: collapse;
+    }
+</style>
 
     <title>Auswertung</title>
     <link rel="stylesheet" href="style.css">
@@ -209,12 +276,6 @@
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript" src="https://www.google.com/jsapi"></script>
     <script type="text/javascript">
-
-
-      var results = <?php //echo $results; ?>;              // [[1, 2, 3, 4, 5, 6]]
-      var hits = <?php //echo $hits; ?>;                    // [1]
-      var misses = <?php //echo $misses; ?>;                // [5]
-      var victoryState = <?php //echo $victoryState; ?>;    // [0]
 
       google.charts.load('current', {'packages':['bar']});
       google.charts.setOnLoadCallback(drawChart);
@@ -324,65 +385,7 @@
           </table>
             <h3>Statistische Auswertung</h3>
             <p>Zahlen</p>
-            <table id="excelTable"></table>
-            <script>
-                // Source: https://www.codexworld.com/export-html-table-data-to-excel-using-javascript/
-                function exportTableToExcel(tableID, filename = ''){
-                    var downloadLink;
-                    var dataType = 'application/vnd.ms-excel';
-                    var tableSelect = document.getElementById(tableID);
-                    var tableHTML = tableSelect.outerHTML.replace(/ /g, '%20');
-                    
-                    // Specify file name
-                    filename = filename?filename+'.xls':'excel_data.xls';
-                    
-                    // Create download link element
-                    downloadLink = document.createElement("a");
-                    
-                    document.body.appendChild(downloadLink);
-                    
-                    if(navigator.msSaveOrOpenBlob){
-                        var blob = new Blob(['\ufeff', tableHTML], {
-                            type: dataType
-                        });
-                        navigator.msSaveOrOpenBlob( blob, filename);
-                    }else{
-                        // Create a link to the file
-                        downloadLink.href = 'data:' + dataType + ', ' + tableHTML;
-                    
-                        // Setting the file name
-                        downloadLink.download = filename;
-                        
-                        //triggering the function
-                        downloadLink.click();
-                    }
-                }
 
-                var table       = document.getElementById('excelTable');
-                var tableBody   = document.createElement('TBODY');
-                var heading     = new Array("Nr.", "Ziehung", "Treffer", "Daneben", "Resultat");
-
-                table.border = '1';
-                table.appendChild(tableBody);
-
-                // Heading
-                var tr = document.createElement('TR')
-                tableBody.appendChild(tr);
-                for(i = 0; i < heading.length; i++){
-                    var th = document.createElement('TH');
-                    th.width = "200";
-                    th.appendChild(document.createTextNode(heading[i]));
-                    tr.appendChild(th);
-                }
-
-            </script>
-            <style>
-                /* Hiding the statistical evaluation table used for excel export*/
-                table#excelTable {
-                    visibility: collapse;
-                }
-            </style>
-    
             <button onclick="exportTableToExcel('excelTable', 'lotto_auswertung')">Statistische Auswertung in Excel</button>
 
         </div>
