@@ -80,7 +80,7 @@
             for($j = 0; $j < $drawCount; $j++) {
                 $number = rand(0, count($raffle_box)-1);
                 $draw[$j] = $raffle_box[$number];
-                $occurrences[$number - 1]++;
+                $occurrences[$raffle_box[$number]-1]++;
 
                 # adjust raffle box array for drawn numbers
                 unset($raffle_box[$number]);
@@ -148,6 +148,8 @@
             $hits           = count_Hits($picks, $results, $iterations);
             $misses         = count_Misses($picks, $results, $iterations);
             $victoryState   = define_lose_or_victory($hits, $iterations, $drawCount);
+            print_r($results);
+            print_r($occurrences);
         }
     }
 
