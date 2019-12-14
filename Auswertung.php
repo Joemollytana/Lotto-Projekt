@@ -156,13 +156,13 @@
     // Array of Arrays
     var results             = <?php echo json_encode($results); ?>;
     var results_as_string   = <?php
-    
+
     foreach($results as &$result){
         $result = implode(", ", $result);
     }
-    
+
     echo json_encode($results);
-    
+
     ?>;
 
     // Arrays with correlating information at the same index
@@ -191,15 +191,15 @@
         var dataType = 'application/vnd.ms-excel';
         var tableSelect = document.getElementById(tableID);
         var tableHTML = tableSelect.outerHTML.replace(/ /g, '%20');
-        
+
         // Specify file name
         filename = filename?filename+'.xls':'excel_data.xls';
-        
+
         // Create download link element
         downloadLink = document.createElement("a");
-        
+
         document.body.appendChild(downloadLink);
-        
+
         if(navigator.msSaveOrOpenBlob){
             var blob = new Blob(['\ufeff', tableHTML], {
                 type: dataType
@@ -208,10 +208,10 @@
         }else{
             // Create a link to the file
             downloadLink.href = 'data:' + dataType + ', ' + tableHTML;
-        
+
             // Setting the file name
             downloadLink.download = filename;
-            
+
             //triggering the function
             downloadLink.click();
         }
@@ -238,7 +238,7 @@
     for(i = 0; i < results.length; i++){
         var tr  = document.createElement('TR');
 
-       // Nr. / Result / Hits / Misses / Victory (y / n) 
+       // Nr. / Result / Hits / Misses / Victory (y / n)
         var n   = document.createElement('TD');
         var r   = document.createElement('TD');
         var h   = document.createElement('TD');
@@ -257,10 +257,10 @@
         tr.appendChild(h);
         tr.appendChild(m);
         tr.appendChild(v);
-        
+
        tableBody.appendChild(tr);
     }
-    
+
 
 </script>
 <style>
@@ -369,7 +369,7 @@
             <h3>Grapische Auswertung</h3>
             <p>Graph einbauen als Balkendiagram: - Gewonnen und verloren - Gewinne verluste pro zahl -</p>
             <!--<div id="columnchart_wins_per_num" style="width: 800px; height: 400px;"></div>-->
-            <iframe src="graph.html" width="100%" height="500" scrolling="no"
+            <iframe id="iframe" src="graph.html" width="100%" height="500" scrolling="no"
                     frameborder="0" seamless>
             </iframe>
 

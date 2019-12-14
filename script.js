@@ -1,3 +1,8 @@
+// Davids Variable, damit der iFrame nicht 1000 mal neu geladen wird
+var iFrame_noch_nicht_geladen = true;
+
+
+
 //
 function checkInputMonth() {
   var inputMonthFull = document.getElementById("month");
@@ -151,6 +156,15 @@ function openTab(evt, tabName) {
   }
   document.getElementById(tabName).style.display = "block";
   evt.currentTarget.className += " active"
+
+  // Bei Klick iFrame aktualisieren
+  if (tabName == 'Graph' && iFrame_noch_nicht_geladen) {
+    setTimeout(function(){
+      document.getElementById('iframe').contentWindow.location.reload(true);
+      iFrame_noch_nicht_geladen = false;
+    }, 200)
+  }
+
 }
 // creates counter with reads the value of the slider
 function refreshCounter() {
