@@ -1,18 +1,25 @@
 <html>
 <head>
 <?php
-    # Setting available RAM for calculations to 1GB
-    ini_set('memory_limit', '1024M');
-
-    #Excel-Export: Dependencies
-    // require 'vendor/autoload.php';
-    // use PhpOffice\PhpSpreadsheet\Spreadsheet;
-    // use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
-
+    # Array of Result-Arrays
     $results        = [];
+    # Array of number of hits
     $hits           = [];
+    # Array of number of misses
     $misses         = [];
+    # Array of statements about victory
     $victoryState   = [];
+    # Array of number occurrences
+    $occurrences     = [];
+    # Array of available and selectable country numbers
+    $countryNumbers = [0, 0];
+
+    $picks          = 0;
+    $iterations     = 0;
+    $drawNumbers    = 0;
+    $drawCount      = 0;
+
+    $country        = "";
 
     function numbers_per_country($country) {
       $availableNumbers = 0;
@@ -55,6 +62,8 @@
 
     function raffle($drawNumbers, $drawCount, $iterations) {
 
+        global $occurrences;
+
         $drawArray = create_raffle_box($drawNumbers);
         $results = [];
 
@@ -65,13 +74,14 @@
             for($j = 0; $j < $drawCount; $j++) {
                 $number = rand(0, count($raffle_box)-1);
                 $draw[$j] = $raffle_box[$number];
+                $occurrences[$raffle_box[$number]-1]++;
+
+                # adjust raffle box array for drawn numbers
                 unset($raffle_box[$number]);
                 $raffle_box = array_values($raffle_box);
             }
 
-            if ($iterations > 1){
-                $draw = sort($draw);
-            }
+            sort($draw);
             $results[] = $draw;
         }
         return $results;
@@ -114,17 +124,22 @@
     #Form Handling
     function main(){
         #Check if Params have values
-        if (isset($_POST["country"]) && isset($_POST["numbers"]) && isset($_POST["draws"])){
+        if (isset($_GET["numbers"]) && isset($_GET["country"]) && isset($_GET["draws"])){
 
-            global $results, $hits, $misses, $victoryState;
+            global $results, $hits, $misses, $victoryState, $occurrences, $country, $picks,
+                   $iterations, $drawNumbers, $drawCount;
 
-            $countryNumbers = numbers_per_country($_POST["country"]);
-            $picks          = explode(",", $_POST["numbers"]);
-            $iterations     = $_POST["draws"];
+            # Formatting inputs
+            $country        = $_GET["country"];
+            $countryNumbers = numbers_per_country($country);
+            $picks          = explode(",", $_GET["numbers"]);
+            $iterations     = $_GET["draws"];
             $drawNumbers    = $countryNumbers[0];
             $drawCount      = $countryNumbers[1];
 
-            # Correlating Numbers at the same Index
+            # Starting: Occurrences of every number = 0
+            $occurrences     = array_fill(0, $drawNumbers, 0);
+            # Filling global variables
             $results        = raffle($drawNumbers, $drawCount, $iterations);
             $hits           = count_Hits($picks, $results, $iterations);
             $misses         = count_Misses($picks, $results, $iterations);
@@ -132,75 +147,136 @@
         }
     }
 
-    #Excel-Export: Function
-    // function excel_export($results, $hits, $misses, $victoryState, $iterations, $drawCount){
-    //     $spreadsheet = new Spreadsheet();
-    //     $sheet = $spreadsheet->getActiveSheet();
-
-    //     # Description of input parameters
-    //     $summary = ['Lotto-Projekt', 'Zahlen', 'Land', 'Ziehungen'];
-    //     $summaryColumn = array_chunk($summary, 1);
-    //     $sheet->fromArray($summaryColumn, NULL, 'A1');
-
-    //     # Description of table
-    //     $tableTitle = ["Nr.", NULL]
-    //     $emptyRow = [NULL, NULL, NULL, NULL, NULL];
-    //     for($x = 1; $x < $drawCount; $x++){
-    //         $tableTitle[] = $x." Zahl";
-    //         $emptyRow[] = NULL;
-    //     }
-    //     $tableTitle[] = NULL;
-    //     $tableTitle[] = "Treffer";
-    //     $tableTitle[] = "Nieten";
-
-    //     # Add Title Row to rowArray
-    //     $rowArray[] = $tableTitle;
-
-    //     # Design: One free row after title
-    //     $rowArray[] = $emptyRow;
-
-    //     # Listing of draws
-    //     for($i = 0; $i < $iterations; $i++){
-    //         $row = [$i, NULL];
-    //         for($j = 0; $j < $drawCount; $j++){
-    //             $row[] = $results[$i][$j];
-    //         }
-    //         $row[] = NULL;
-    //         $row[] = $hits[$i];
-    //         $row[] = $misses[$i];
-    //         $rowArray[] = $row;
-    //     }
-    //     $sheet->fromArray($rowArray, NULL, 'D2');
-
-
-    //     $writer = new Xlsx($spreadsheet);
-    //     $writer->save('Lotto_Auswertung.xlsx');
-    // }
-
-    main();
-
-    #Test
-    #$countryNumbers = numbers_per_country("dk");
-    #$picks          = explode(",", "2,3,4,5,6,7,8");
-    #$iterations     = "1";
-    #$drawNumbers    = $countryNumbers[0];
-    #$drawCount      = $countryNumbers[1];
-    #
-    ## Correlating Numbers at the same Index
-    #$results        = raffle($drawNumbers, $drawCount,  $iterations);
-    #$hits           = count_Hits($picks, $results, $iterations);
-    #$victoryState   = define_lose_or_victory($hits, $iterations, $drawCount);
-    #
-    #print_r($results);
-    #print_r($hits);
-    #print_r($victoryState);
+   main();
     ?>
+
+<table id="excelTable"></table>
+<script type="text/javascript">
+
+    // Array of Arrays
+    var results             = <?php echo json_encode($results); ?>;
+    var results_as_string   = <?php
+
+    foreach($results as &$result){
+        $result = implode(", ", $result);
+    }
+
+    echo json_encode($results);
+
+    ?>;
+
+    // Arrays with correlating information at the same index
+    var hits            = <?php echo json_encode($hits) ?>;
+    var misses          = <?php echo json_encode($misses) ?>;
+    var victoryState    = <?php echo json_encode($victoryState) ?>;
+
+    // Arrays with no correlation thus different lengths
+    var occurrences     = <?php echo json_encode($occurrences) ?>;
+    var picks           = <?php echo json_encode($picks) ?>;
+
+    // Ints
+    var iterations      = <?php echo $iterations ?>;
+    var drawNumbers     = <?php echo $drawNumbers ?>;
+    var drawCount       = <?php echo $drawCount ?>;
+
+    // Strings
+    var country         = "<?php echo $country ?>";
+
+
+    console.log(results.toString())
+
+    // Source: https://www.codexworld.com/export-html-table-data-to-excel-using-javascript/
+    function exportTableToExcel(tableID, filename = ''){
+        var downloadLink;
+        var dataType = 'application/vnd.ms-excel';
+        var tableSelect = document.getElementById(tableID);
+        var tableHTML = tableSelect.outerHTML.replace(/ /g, '%20');
+
+        // Specify file name
+        filename = filename?filename+'.xls':'excel_data.xls';
+
+        // Create download link element
+        downloadLink = document.createElement("a");
+
+        document.body.appendChild(downloadLink);
+
+        if(navigator.msSaveOrOpenBlob){
+            var blob = new Blob(['\ufeff', tableHTML], {
+                type: dataType
+            });
+            navigator.msSaveOrOpenBlob( blob, filename);
+        }else{
+            // Create a link to the file
+            downloadLink.href = 'data:' + dataType + ', ' + tableHTML;
+
+            // Setting the file name
+            downloadLink.download = filename;
+
+            //triggering the function
+            downloadLink.click();
+        }
+    }
+
+    var table       = document.getElementById('excelTable');
+    var tableBody   = document.createElement('TBODY');
+    var heading     = new Array("Nr.", "Ziehung", "Treffer", "Daneben", "Resultat");
+
+    table.border = '1';
+    table.appendChild(tableBody);
+
+    // Header
+    var tr = document.createElement('TR');
+    tableBody.appendChild(tr);
+    for(i = 0; i < heading.length; i++){
+        var th = document.createElement('TH');
+        /*th.width = "200";*/
+        th.appendChild(document.createTextNode(heading[i]));
+        tr.appendChild(th);
+    }
+
+    // Rows
+    for(i = 0; i < results.length; i++){
+        var tr  = document.createElement('TR');
+
+       // Nr. / Result / Hits / Misses / Victory (y / n)
+        var n   = document.createElement('TD');
+        var r   = document.createElement('TD');
+        var h   = document.createElement('TD');
+        var m   = document.createElement('TD');
+        var v   = document.createElement('TD');
+
+        n.appendChild(document.createTextNode(i + 1));
+        r.appendChild(document.createTextNode(results_as_string[i]));
+        h.appendChild(document.createTextNode(hits[i]));
+        m.appendChild(document.createTextNode(misses[i]));
+        v.appendChild(document.createTextNode(victoryState[i] == 0 ? "Verloren!" : "Gewonnen!"));
+
+
+        tr.appendChild(n);
+        tr.appendChild(r);
+        tr.appendChild(h);
+        tr.appendChild(m);
+        tr.appendChild(v);
+
+       tableBody.appendChild(tr);
+    }
+
+
+</script>
+<style>
+    /* Hiding the statistical evaluation table used for excel export*/
+    table#excelTable {
+        visibility: collapse;
+    }
+</style>
 
     <title>Auswertung</title>
     <link rel="stylesheet" href="style.css">
+    <!--
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript" src="https://www.google.com/jsapi"></script>
     <script type="text/javascript">
+
       google.charts.load('current', {'packages':['bar']});
       google.charts.setOnLoadCallback(drawChart);
 
@@ -213,10 +289,10 @@
 
         var options = {
           chart: {
-            title: 'Company Performance',
-            subtitle: 'Sales, Expenses, and Profit: 2014-2017',
-            'height': 800,
-            'width': 400,
+            title: 'Lotto Auswertung',
+            subtitle: 'Welche Zahlen haben wie oft gewonnen',
+            'height': 800px,
+            'width': 400px,
             "chartArea": {
               "width":'100%',
               "height":'100%'
@@ -228,7 +304,8 @@
 
         chart.draw(data, google.charts.Bar.convertOptions(options));
       }
-    </script>
+    </script>-->
+
     <script type="text/javascript" src="script.js"></script>
     <!--<script type="text/javascript">
         google.charts.load('current', { 'packages': ['corechart'] });
@@ -291,26 +368,25 @@
         <div id="Graph" class="tabcontent">
             <h3>Grapische Auswertung</h3>
             <p>Graph einbauen als Balkendiagram: - Gewonnen und verloren - Gewinne verluste pro zahl -</p>
-            <div id="columnchart_wins_per_num" style="width: 800px; height: 400px;"></div>
+            <!--<div id="columnchart_wins_per_num" style="width: 800px; height: 400px;"></div>-->
+            <iframe id="iframe" src="graph.html" width="100%" height="500" scrolling="no"
+                    frameborder="0" seamless>
+            </iframe>
 
 
         </div>
 
         <div id="Statistik" class="tabcontent">
-            <h3>Statistische Auswertung</h3>
-            <table style="width:100%">
-              <tr>
-                <th>Zahlen</th>
-                <th>Treffer</th>
-              </tr>
-              <tr id=resultats>
-                <td>drawnumbers</td>
-                <td>result</td>
-              </tr>
+          <table style="width:100%">
+            <tr>
+              <th>nix</th>
+            </tr>
 
-            </table>
-            <br>
-            <input type="button" name="" value="Als Excel exportieren">
+          </table>
+            <h3>Statistische Auswertung</h3>
+            <p>Zahlen</p>
+
+            <button onclick="exportTableToExcel('excelTable', 'lotto_auswertung')">Statistische Auswertung in Excel</button>
 
         </div>
 

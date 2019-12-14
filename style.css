@@ -1,5 +1,5 @@
 * {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: 'Segoe UI',sans-serif;
 }
 
 body {
@@ -52,9 +52,10 @@ main {
   animation: fadeEffect 1s;
 }
 
-#Senden {
-  /*align-self: flex-end;*/
-}
+/*#Senden {
+  /*align-self: flex-end;
+}*/
+
 #Senden input {
   background-color: #db0202;
   padding: 10px 16px;
@@ -80,7 +81,6 @@ header {
   background-color: white;
   overflow: hidden;
   text-align: center;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   color: white;
   box-shadow: 1px 1px 20px rgba(0, 0, 0, 0.301);
   padding: 2px 0px 15px;
@@ -324,4 +324,42 @@ ul {
 
 li {
   list-style: none;
+}
+
+/*############################################################################*/
+
+#agecheck h2 {
+  margin-bottom: 40px;
+}
+#alterscheck_footer {
+  position: absolute;
+  bottom: 0;
+}
+
+#age {
+  margin-top: 30px;
+  margin-bottom: 60px;
+  background-color: #db0202;
+  padding: 10px 16px;
+  color: white;
+  border: 1px solid #db0202;
+  border-radius: 50px;
+  transition: 0.5s;
+  font-weight: bold;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  width: 250px;
+}
+#age:hover {
+  background-color: #ff2f2f;
+  color: white;
+  border: 1px solid #ff3f3f;
+  transition: 0.5s;
+  /*border: 2px solid #db0202;*/
+  cursor: pointer;
+}
+
+/*############################################################################*/
+
+iframe {
+  margin: auto;
 }
