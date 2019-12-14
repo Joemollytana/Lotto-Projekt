@@ -8,7 +8,13 @@ function checkInputMonth() {
   var inputMonthFull = document.getElementById("month");
   var inputYearFull = document.getElementById("year");
 
-  if (inputMonthFull.value != "" && inputYearFull.value != ""){
+  if (inputMonthFull.value < 1) {
+    inputMonthFull.value = inputMonthFull.min;
+  } else if (inputMonthFull.value > 12) {
+    inputMonthFull.value = inputMonthFull.max;
+  }
+
+  if (inputMonthFull.value != "" && inputYearFull.value != "") {
     document.getElementById("age").disabled = false;
   } else {
     document.getElementById("age").disabled = true;
@@ -19,10 +25,16 @@ function checkInputYear() {
   var inputMonthFull = document.getElementById("month");
   var inputYearFull = document.getElementById("year");
 
-  if (inputMonthFull.value != "" && inputYearFull.value != ""){
+  if (inputYearFull.value < 1000) {
+    inputYearFull.value = inputYearFull.min;
+  } else if (inputYearFull.value > 3000) {
+    inputYearFull.value = inputYearFull.max;
+  }
+
+  if (inputMonthFull.value != "" && inputYearFull.value != "") {
     document.getElementById("age").disabled = false;
   } else {
-    document.getElementById("age").disabled = true;
+      document.getElementById("age").disabled = true;
   }
 }
 //
@@ -159,7 +171,7 @@ function openTab(evt, tabName) {
 
   // Bei Klick iFrame aktualisieren
   if (tabName == 'Graph' && iFrame_noch_nicht_geladen) {
-    setTimeout(function(){
+    setTimeout(function() {
       document.getElementById('iframe').contentWindow.location.reload(true);
       iFrame_noch_nicht_geladen = false;
     }, 200)
