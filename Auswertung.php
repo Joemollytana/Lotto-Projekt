@@ -297,14 +297,19 @@
         </div>
 
         <div id="Statistik" class="tabcontent">
-          <table style="width:100%">
-            <tr>
-              <th>Penis</th>
-            </tr>
-
-          </table>
             <h3>Statistische Auswertung</h3>
-            <p>Zahlen</p>
+            <table style="width:100%">
+              <tr>
+                <th>Zahlen</th>
+                <th>Treffer</th>
+              </tr>
+              <tr id=resultats>
+                <td>drawnumbers</td>
+                <td>result</td>
+              </tr>
+
+            </table>
+            <br>
             <input type="button" name="" value="Als Excel exportieren">
 
         </div>
