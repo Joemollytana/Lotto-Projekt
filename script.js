@@ -167,16 +167,15 @@ function openTab(evt, tabName) {
     tablinks[i].className = tablinks[i].className.replace(" active", "");
   }
   document.getElementById(tabName).style.display = "block";
-  evt.currentTarget.className += " active"
+  evt.currentTarget.className += " active";
 
   // Bei Klick iFrame aktualisieren
-  if (tabName == 'Graph' && iFrame_noch_nicht_geladen) {
-    setTimeout(function() {
-      document.getElementById('iframe').contentWindow.location.reload(true);
-      iFrame_noch_nicht_geladen = false;
-    }, 200)
-  }
-
+  //if (tabName == 'Graph' && iFrame_noch_nicht_geladen) {
+  //  setTimeout(function() {
+  //    document.getElementById('iframe').contentWindow.location.reload(true);
+  //    iFrame_noch_nicht_geladen = false;
+  //  }, 200)
+  //}
 }
 // creates counter with reads the value of the slider
 function refreshCounter() {

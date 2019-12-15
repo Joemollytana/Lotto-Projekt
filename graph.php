@@ -1,30 +1,37 @@
-<!DOCTYPE html>
+
 <html lang="de">
   <head>
     <meta charset="utf-8">
 
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <?php
+      $results = array(array(10,14,15,18,20,42),array(40,41,42,44,45,46));
+    ?>
     <script type="text/javascript">
-
-
-      /*
-      var results = <?php echo $results; ?>;              // [[1, 2, 3, 4, 5, 6]]
+      var results = <?php echo json_encode($results); ?>;              // [[1, 2, 3, 4, 5, 6]]
+      console.log(results)
       var hits = <?php echo $hits; ?>;                    // [1]
       var misses = <?php echo $misses; ?>;                // [5]
-      var victoryState = <?php echo $victoryState; ?>;    // [0]
-      var occurrences = <?php echo $occurrences; ?>;      // i = Zahl - 1 [i] = Häufigkeit Zahl
-      */
+      var victoryState = <?php echo $victoryState; ?>;    // [0]*/
+      var occurrences = "<?php echo json_encode($occurrences); ?>";      // i = Zahl - 1 [i] = Häufigkeit Zahl
+
+    </script>
+
+
+    <script type="text/javascript">
+
 
       google.charts.load('current', {'packages':['bar']});
       google.charts.setOnLoadCallback(drawChart);
 
       var bspArray1 = [['Zahlen', 'Gewinne', 'Nieten'],[20, 30, 40],[20, 30, 40],[20, 30, 40],[20, 30, 40]];
-
+      var chartArray = [['Häufigkeiten']]
+      chartArray.push(occurrences)
 
       function drawChart() {
         var data = google.visualization.arrayToDataTable(
-          bspArray1);
+          chartArray);
 
         var options = {
           chart: {

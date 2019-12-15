@@ -1,0 +1,31 @@
+<html>
+
+<head>
+  <title>Alterscheck</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js"> </script>
+</head>
+<header>
+  <h1>Glücksspiel kann süchtig machen.</h1>
+</header>
+
+<body id="agecheck">
+  <main>
+    <h2>Gebe dein Geburtsdatum an:</h2>
+    <input type="number" id="month" placeholder="Monat" min="1" max="12" name="Monat" onchange="checkInputMonth()">
+    <input type="number" id="year" placeholder="Jahr" max="3000" min="1000" name="Jahr" onchange="checkInputYear()">
+    <br>
+    <input type="button" id="age" name="enterButton" value="Alter bestätigen" onclick="checkAge()" disabled>
+  </main>
+</body>
+<footer>
+  <div>
+    Trotz sorgfältiger inhaltlicher Kontrolle übernimmt die Lotto-DHBW-VS keine Haftung für die Inhalte
+    externer Links. Für den Inhalt der verlinkten Seiten sind ausschließlich deren Betreiber verantwortlich.
+    Es werden keine Zusicherungen abgegeben und keinerlei Gewährleistung und Haftung für die Richtigkeit der
+    bereitgestellten Informationen übernommen. Spielen mit Verantwortung. Spielteilnahme ab 18 Jahren. Glücksspiel
+    kann süchtig machen. Mehr Infos unter: www.spielen-mit-verantwortung.de
+  </div>
+</footer>
+
+</html>

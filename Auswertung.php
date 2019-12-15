@@ -261,7 +261,37 @@
        tableBody.appendChild(tr);
     }
 
+////////////////////////////////////////////////////////////////////////////////
+// Graphische Auswertung
 
+function createOccurrences_per_number() {
+  var chxl = '&chxl=0:|'; // x: numbers --> picks
+  var chd = '&chd=t:'; // y: values --> occurrences
+  var chds = '&chds=0,'; // scaling y
+  var chxr = '&chxr=1,0,'
+  for (i=1, len=picks.length; i <= len; i++) {
+    if (i < len) {
+      chd = chd + occurrences[picks[i-1] - 1] + ',';
+      chxl = chxl + picks[i-1] + '|';
+    }
+    else {
+      chd = chd + occurrences[picks[i-1] - 1];
+      chxl = chxl + picks[i-1];
+    }
+  }
+  chds = chds + (Math.max.apply(Math, occurrences) * 10);
+  chxr = chxr + (Math.max.apply(Math, occurrences) * 10);
+  return chxr + chds + chxl + chd;
+}
+
+function createGraph() {
+  //...&chxl=0:|1|2|3|4|5&chs=800x350&chd=t:30,30,50,80,200
+  parGraph = createOccurrences_per_number();
+  var basicGraph = 'http://chart.apis.google.com/chart?cht=bvs&chxt=x,y&chs=600x350';//&chxr=1,0,10000&chds=0,10000&chd=t:30,30,50,80,200&chxl=0:|1|2|3;
+  var urlGraph = basicGraph + parGraph
+  //console.log(chxl);
+  document.getElementById('graphicalEvaluation').src = urlGraph;
+}
 </script>
 <style>
     /* Hiding the statistical evaluation table used for excel export*/
@@ -350,7 +380,7 @@
             <button class="tablinks" onclick="openTab(event, 'Statistik')" id="defaultOpen">Statistische
                 Auswertung</button>
             <button class="tablinks" onclick="openTab(event, 'Daten')">Zusammenfassung</button>
-            <button class="tablinks" onclick="openTab(event, 'Graph')">Graphische Auswertung</button>
+            <button class="tablinks" onclick="openTab(event, 'Graph');createGraph()">Graphische Auswertung</button>
 
         </div>
 
@@ -369,9 +399,11 @@
             <h3>Grapische Auswertung</h3>
             <p>Graph einbauen als Balkendiagram: - Gewonnen und verloren - Gewinne verluste pro zahl -</p>
             <!--<div id="columnchart_wins_per_num" style="width: 800px; height: 400px;"></div>-->
-            <iframe id="iframe" src="graph.html" width="100%" height="500" scrolling="no"
+
+            <!--<iframe id="iframe" src="graph.php" width="100%" height="500" scrolling="no"
                     frameborder="0" seamless>
-            </iframe>
+            </iframe>-->
+            <iframe id="graphicalEvaluation" src="" width="100%" height="100%"></iframe>
 
 
         </div>
