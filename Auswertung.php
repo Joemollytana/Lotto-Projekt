@@ -388,7 +388,7 @@ function createGraph() {
 <header>
     <h1>Ergebnisse der Lottoziehung:</h1>
     <div>
-        <input type="button" value="Zurück zur Lottoziehung" onclick="location.href='hauptseite.html'">
+        <input type="button" value="Zurück zur Lottoziehung" class="headerButton" onclick="location.href='hauptseite.html'" class="headerButton">
 
     </div>
 </header>
@@ -419,13 +419,14 @@ function createGraph() {
 
         <div id="Graph" class="tabcontent">
             <h3>Grapische Auswertung</h3>
-            <p>Graph einbauen als Balkendiagram: - Gewonnen und verloren - Gewinne verluste pro zahl -</p>
+            <p>Wie oft wurde die gewählte Zahl tatsächlich gezogen und wie oft war es eine Niete.</p>
+            <!--<p>Graph einbauen als Balkendiagram: - Gewonnen und verloren - Gewinne verluste pro zahl -</p>-->
             <!--<div id="columnchart_wins_per_num" style="width: 800px; height: 400px;"></div>-->
 
             <!--<iframe id="iframe" src="graph.php" width="100%" height="500" scrolling="no"
                     frameborder="0" seamless>
             </iframe>-->
-            <iframe id="graphicalEvaluation" src="" width="100%" height="100%"></iframe>
+            <iframe id="graphicalEvaluation" src="" ></iframe>
 
 
         </div>
@@ -440,7 +441,7 @@ function createGraph() {
             <h3>Statistische Auswertung</h3>
             <p>Zahlen</p>
 
-            <button onclick="exportTableToExcel('excelTable', 'lotto_auswertung')">Statistische Auswertung in Excel</button>
+            <button class="prettyButton" onclick="exportTableToExcel('excelTable', 'lotto_auswertung')">Statistische Auswertung in Excel</button>
 
         </div>
 
@@ -453,7 +454,7 @@ function createGraph() {
         externer Links. Für den Inhalt der verlinkten Seiten sind ausschließlich deren Betreiber verantwortlich.
         Es werden keine Zusicherungen abgegeben und keinerlei Gewährleistung und Haftung für die Richtigkeit der
         bereitgestellten Informationen übernommen. Spielen mit Verantwortung. Spielteilnahme ab 18 Jahren. Glücksspiel
-        kann süchtig machen. Mehr Infos unter: www.spielen-mit-verantwortung.de
+        kann süchtig machen. Mehr Infos unter: <a href="https://www.spielen-mit-verantwortung.de/" target="_blank">www.spielen-mit-verantwortung.de</a>
     </div>
 
 </footer>
