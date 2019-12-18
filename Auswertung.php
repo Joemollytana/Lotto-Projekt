@@ -262,13 +262,16 @@
     }
 
 ////////////////////////////////////////////////////////////////////////////////
-// Graphische Auswertung
+//////////////////////////   Graphische Auswertung   ///////////////////////////
+////////////////////////////////////////////////////////////////////////////////
 
+// Berechnung der Parameter
 function createOccurrences_per_number() {
   var chxl = '&chxl=0:|'; // x: numbers --> picks
   var chd = '&chd=t:'; // y: values --> occurrences
   var chds = '&chds=0,'; // scaling y
   var chxr = '&chxr=1,0,'
+  // 1. Dimension --> Wins
   for (i=1, len=picks.length; i <= len; i++) {
     if (i < len) {
       chd = chd + occurrences[picks[i-1] - 1] + ',';
@@ -279,15 +282,34 @@ function createOccurrences_per_number() {
       chxl = chxl + picks[i-1];
     }
   }
-  chds = chds + (Math.max.apply(Math, occurrences) * 10);
-  chxr = chxr + (Math.max.apply(Math, occurrences) * 10);
+  // 2. Dimension --> Loses
+  chd = chd + '|'
+  for (i=1, len=picks.length; i<=len; i++) {
+    if (i < len) {
+      chd = chd + (iterations - occurrences[picks[i-1] - 1]) + ',';
+    }
+    else {
+      chd = chd + (iterations - occurrences[picks[i-1] - 1]);
+    }
+  }
+  // Bestimmung sonstiger Parameter
+  if (iterations<10) {
+    chds = chds + 10;
+    chxr = chxr + 10;
+  }
+  else {
+    chds = chds + iterations;//(Math.max.apply(Math, occurrences) * 2);
+    chxr = chxr + iterations;//(Math.max.apply(Math, occurrences) * 2);
+  }
+
   return chxr + chds + chxl + chd;
 }
 
+// Erstellung des Graphen
 function createGraph() {
   //...&chxl=0:|1|2|3|4|5&chs=800x350&chd=t:30,30,50,80,200
   parGraph = createOccurrences_per_number();
-  var basicGraph = 'http://chart.apis.google.com/chart?cht=bvs&chxt=x,y&chs=600x350';//&chxr=1,0,10000&chds=0,10000&chd=t:30,30,50,80,200&chxl=0:|1|2|3;
+  var basicGraph = 'http://chart.apis.google.com/chart?cht=bvg&chxt=x,y&chs=700x350&chco=238555,db0202&chdl=Wins|Loses';//&chxr=1,0,10000&chds=0,10000&   chd=t:30,30,50,80,200|1,2,3,4,5   &chxl=0:|1|2|3;
   var urlGraph = basicGraph + parGraph
   //console.log(chxl);
   document.getElementById('graphicalEvaluation').src = urlGraph;
