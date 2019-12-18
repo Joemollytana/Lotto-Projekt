@@ -314,7 +314,60 @@ function createGraph() {
   //console.log(chxl);
   document.getElementById('graphicalEvaluation').src = urlGraph;
 }
+
+
+////////////////////////////////////////////////////////////////////////////////
+//////////////////////////   Zusammenfassung   /////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+function createSummary(){
+  var returnedPicks = picks;
+  var returnedThrows = iterations;
+  var returnCountry = country;
+  if (returnCountry == "de") {
+    returnCountry = "Deutschland";
+  } else if (returnCountry == "be") {
+    returnCountry = "Belgien";
+  } else if (returnCountry == "dk") {
+    returnCountry = "Dänemark";
+  } else if (returnCountry == "us") {
+    returnCountry = "USA";
+  } else if (returnCountry == "it") {
+    returnCountry = "Italien"
+  } else {
+    returnCountry = "NONE"
+  }
+  document.getElementById("yourNumbers").innerHTML= "Deine Lottozahlen sind: " + "<b>" + returnedPicks + "</b>";
+  document.getElementById("yourThrows").innerHTML= "Deine Wurfanzahl ist: " + "<b>" + returnedThrows + "</b>";
+  document.getElementById("yourCountry").innerHTML= "Dein ausgewähltes Land ist: " + "<b>" + returnCountry + "</b>";
+
+  if (returnedThrows > 1){
+    var numberHits = hits.reduce((a, b) => a + b, 0);
+    var numberMisses = misses.reduce((a, b) => a + b, 0);
+    // wenn mehr als einmal geworfeen wurde, dann wird angezeigt, ob man verloren oder gewonnen hat
+    // dann wird gezeigt was die höchste anzahl an treffern das erste mal erreicht hat
+    // zuletzt wird die anzahl der insgesamten treffern gezeigt und wie oft man nichts getroffen hat
+    if (victoryState.includes(1)) {
+
+      var win = victoryState.indexOf(1) + 1;
+      var state = "bei deinem <b>" + win + "</b> Wurf <b>gewonnen</b>! Herzlichen Glückwunsch!";
+      document.getElementById("yourHits").innerHTML = "Deine Anzahl Treffer ingesammt ist: <b>" + numberHits + "</b>";
+      document.getElementById("yourMisses").innerHTML = "Deine Anzahl Treffer ingesammt ist: <b>" + numberMisses + "</b>";
+
+    } else {
+      var state = "leider <b>verloren</b>.";
+      document.getElementById("yourHits").innerHTML = "Deine Anzahl Treffer ingesammt ist: <b>" + numberHits + "</b>";
+      document.getElementById("yourMisses").innerHTML = "Deine Anzahl Misserfolge ingesammt ist: <b>" + numberMisses + "</b>";
+    }
+  }else if (victoryState[0] == 0) {
+      var state = "leider <b>verloren</b>. Versuch es doch nochmal!";
+    } else {
+      var state = "<b>gewonnen!!!</b> Herzlichen Glückwunsch!";
+    }
+    document.getElementById("yourWon").innerHTML = "Du hast " + state;
+
+}
 </script>
+
 <style>
     /* Hiding the statistical evaluation table used for excel export*/
     table#excelTable {
@@ -359,31 +412,7 @@ function createGraph() {
     </script>-->
 
     <script type="text/javascript" src="script.js"></script>
-    <!--<script type="text/javascript">
-        google.charts.load('current', { 'packages': ['corechart'] });
-        google.charts.setOnLoadCallback(drawChart);
-        function drawChart() {
-            var data = new google.visualization.DataTable();
-            data.addColum('string', 'Land');
-            data.addColum('number', 'Gewinne');
-            data.addRows([
-                ['Deutschland', 1],
-                ['Deutschland', 1],
-                ['Deutschland', 1],
-                ['Deutschland', 1],
-                ['Deutschland', 1],
 
-            ]);
-
-            var options = {
-                'title': 'Graphische Auswertung der Würfe:',
-                'width': 500,
-                'height': 400
-            };
-            var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
-            chart.draw(data, options);
-        }
-    </script>-->
 </head>
 <header>
     <h1>Ergebnisse der Lottoziehung:</h1>
@@ -399,21 +428,22 @@ function createGraph() {
 
     <main id=main>
         <div class="tab">
-            <button class="tablinks" onclick="openTab(event, 'Statistik')" id="defaultOpen">Statistische
+            <button class="tablinks" onclick="openTab(event, 'Statistik')" >Statistische
                 Auswertung</button>
-            <button class="tablinks" onclick="openTab(event, 'Daten')">Zusammenfassung</button>
+            <button class="tablinks" onclick="openTab(event, 'Daten');createSummary()" id="defaultOpen">Zusammenfassung</button>
             <button class="tablinks" onclick="openTab(event, 'Graph');createGraph()">Graphische Auswertung</button>
 
         </div>
 
         <div id="Daten" class="tabcontent">
             <h3>Zusammenfassung</h3>
-            <p>-Lottozahlen</p>
-            <p>-Anzahl würfe</p>
-            <p>-Land</p>
-            <p>-Gewonnen:</p>
-            <p>-Verloren:</p>
-            <p>Wenn anzahl 1, dann anders!</p>
+            <p id="yourNumbers">Keine Lottozahlen</p>
+            <p id="yourThrows">Keine Würfe</p>
+            <p id="yourCountry">Kein Land</p>
+            <p id="yourHits"></p>
+            <p id="yourMisses"></p>
+            <br>
+            <p id="yourWon"></p>
 
         </div>
 
