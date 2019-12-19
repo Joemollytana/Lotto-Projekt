@@ -323,6 +323,7 @@ function createSummary(){
   var returnedPicks = picks;
   var returnedThrows = iterations;
   var returnCountry = country;
+  var lottoZug = results[0]
   if (returnCountry == "de") {
     returnCountry = "Deutschland";
   } else if (returnCountry == "be") {
@@ -343,9 +344,8 @@ function createSummary(){
   if (returnedThrows > 1){
     var numberHits = hits.reduce((a, b) => a + b, 0);
     var numberMisses = misses.reduce((a, b) => a + b, 0);
-    // wenn mehr als einmal geworfeen wurde, dann wird angezeigt, ob man verloren oder gewonnen hat
-    // dann wird gezeigt was die höchste anzahl an treffern das erste mal erreicht hat
-    // zuletzt wird die anzahl der insgesamten treffern gezeigt und wie oft man nichts getroffen hat
+
+
     if (victoryState.includes(1)) {
 
       var win = victoryState.indexOf(1) + 1;
@@ -360,11 +360,47 @@ function createSummary(){
     }
   }else if (victoryState[0] == 0) {
       var state = "leider <b>verloren</b>. Versuch es doch nochmal!";
+      document.getElementById("yourLotto").innerHTML = "Die gezogenen Zahlen sind: <b>" + lottoZug +"</b>"
     } else {
       var state = "<b>gewonnen!!!</b> Herzlichen Glückwunsch!";
+      document.getElementById("yourLotto").innerHTML = "Die gezogenen Zahlen sind: <b>" + lottoZug +"</b>"
     }
+
     document.getElementById("yourWon").innerHTML = "Du hast " + state;
 
+}
+////////////////////////////////////////////////////////////////////////////////
+//////////////////////////   Statistische Auswertung  //////////////////////////
+////////////////////////////////////////////////////////////////////////////////
+function createTable(){
+  var tableArray = [];
+  var tableResults = results;
+  var tableHits = hits;
+  var tableLength;
+  var i;
+  var y;
+  var table = document.getElementById("Tabelle");
+
+  for (i=0, tableLength = tableResults.length; i<tableLength ; i++){
+    var arrayResults = tableResults[i];
+    var arrayHits = tableHits[i];
+    var arrayArray = [arrayHits, arrayResults];
+
+    tableArray.push(arrayArray); // [ [arrayhits, [arrayResult]], [array]
+  }
+  tableArray = tableArray.sort().reverse();
+
+  console.log(tableArray);
+
+  for (y=0; y<50 || y < tableArrayb.length ; y++){
+    var row = table.insertRow(y+1)
+    var cell1 = row.insertCell(0);
+    var cell2 = row.insertCell(1);
+    console.log(tableArray[y][1][0]);
+    cell1.innerHTML = tableArray[y][1][0];
+    cell2.innerHTML = tableArray[y][0];
+
+  }
 }
 </script>
 
@@ -428,7 +464,7 @@ function createSummary(){
 
     <main id=main>
         <div class="tab">
-            <button class="tablinks" onclick="openTab(event, 'Statistik')" >Statistische
+            <button class="tablinks" onclick="openTab(event, 'Statistik'); createTable()" >Statistische
                 Auswertung</button>
             <button class="tablinks" onclick="openTab(event, 'Daten');createSummary()" id="defaultOpen">Zusammenfassung</button>
             <button class="tablinks" onclick="openTab(event, 'Graph');createGraph()">Graphische Auswertung</button>
@@ -442,6 +478,8 @@ function createSummary(){
             <p id="yourCountry">Kein Land</p>
             <p id="yourHits"></p>
             <p id="yourMisses"></p>
+            <br>
+            <p id="yourLotto"></p>
             <br>
             <p id="yourWon"></p>
 
@@ -462,14 +500,16 @@ function createSummary(){
         </div>
 
         <div id="Statistik" class="tabcontent">
-          <table style="width:100%">
-            <tr>
-              <th>nix</th>
-            </tr>
+
 
           </table>
             <h3>Statistische Auswertung</h3>
-            <p>Zahlen</p>
+            <table id=Tabelle>
+              <tr>Ziehungen
+                <th>Ziehungen</th>
+                <th>Treffer</th>
+              </tr>
+            </table>
 
             <button class="prettyButton" onclick="exportTableToExcel('excelTable', 'lotto_auswertung')">Statistische Auswertung in Excel</button>
 

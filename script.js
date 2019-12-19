@@ -190,7 +190,7 @@ function refreshCounter() {
     draw.value = this.value;
   }
   //################################################!!!!!!!
-  counterOutput.onchange = function() { ///////ÜBERARBEITEN
+  counterOutput.onchange = function() {
     slider.value = this.value;
     draw.value = this.value;
     if (this.value < 1) {
