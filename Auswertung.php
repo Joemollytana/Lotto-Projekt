@@ -390,7 +390,7 @@ function createTable(){
   }
   tableArray = tableArray.sort().reverse();
 
-  
+
   var condition
   if (tableArray.length < 50) {
     condition = tableArray.length;
@@ -417,40 +417,6 @@ function createTable(){
 
     <title>Auswertung</title>
     <link rel="stylesheet" href="style.css">
-    <!--
-    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
-    <script type="text/javascript">
-
-      google.charts.load('current', {'packages':['bar']});
-      google.charts.setOnLoadCallback(drawChart);
-
-      var bspArray1 = [['Sales', 'Expenses', 'Profit'],[20, 30, 40],[20, 30, 40],[20, 30, 40],[20, 30, 40]];
-
-
-      function drawChart() {
-        var data = google.visualization.arrayToDataTable(
-          bspArray1);
-
-        var options = {
-          chart: {
-            title: 'Lotto Auswertung',
-            subtitle: 'Welche Zahlen haben wie oft gewonnen',
-            'height': 800px,
-            'width': 400px,
-            "chartArea": {
-              "width":'100%',
-              "height":'100%'
-            }
-          }
-        };
-
-        var chart = new google.charts.Bar(document.getElementById('columnchart_wins_per_num'));
-
-        chart.draw(data, google.charts.Bar.convertOptions(options));
-      }
-    </script>-->
-
     <script type="text/javascript" src="script.js"></script>
 
 </head>
@@ -492,12 +458,6 @@ function createTable(){
         <div id="Graph" class="tabcontent">
             <h3>Grapische Auswertung</h3>
             <p>Wie oft wurde die gewählte Zahl tatsächlich gezogen und wie oft war es eine Niete.</p>
-            <!--<p>Graph einbauen als Balkendiagram: - Gewonnen und verloren - Gewinne verluste pro zahl -</p>-->
-            <!--<div id="columnchart_wins_per_num" style="width: 800px; height: 400px;"></div>-->
-
-            <!--<iframe id="iframe" src="graph.php" width="100%" height="500" scrolling="no"
-                    frameborder="0" seamless>
-            </iframe>-->
             <iframe id="graphicalEvaluation" src="" ></iframe>
 
 
@@ -509,7 +469,7 @@ function createTable(){
           </table>
             <h3>Statistische Auswertung</h3>
             <table id=Tabelle>
-              <tr>Ziehungen
+              <tr>
                 <th>Ziehungen</th>
                 <th>Treffer</th>
               </tr>

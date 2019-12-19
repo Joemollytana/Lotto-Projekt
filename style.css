@@ -341,8 +341,7 @@ li {
   bottom: 0;
 }
 #auswertung_footer {
-  position: absolute;
-  bottom: 0;
+  position: relative;
 }
 
 #age {
@@ -429,4 +428,28 @@ li {
 footer a {
   color: white;
   text-decoration: none;
+}
+
+#Tabelle {
+  margin: auto;
+  background-color: darkgray;
+  margin-top: 20px;
+  margin-bottom: 30px;
+  width: 60%;
+}
+#Tabelle table {
+  margin: auto;
+}
+#Tabelle th {
+  background-color: #db0202;
+  color: white;
+  padding-top: 6px;
+  padding-bottom: 6px;
+}
+
+#Tabelle td {
+  background-color: #f1f1f1;
+  text-align: center;
+  padding-top: 6px;
+  padding-bottom: 6px;
 }
