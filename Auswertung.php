@@ -391,14 +391,20 @@ function createTable(){
   tableArray = tableArray.sort().reverse();
 
   console.log(tableArray);
-
-  for (y=0; y<50 || y < tableArrayb.length ; y++){
+  var condition
+  if (tableArray.length < 50) {
+    condition = tableArray.length;
+  } else {
+    condition = 50;
+  }
+  for (y=0; y < condition ; y++){
     var row = table.insertRow(y+1)
     var cell1 = row.insertCell(0);
     var cell2 = row.insertCell(1);
-    console.log(tableArray[y][1][0]);
-    cell1.innerHTML = tableArray[y][1][0];
-    cell2.innerHTML = tableArray[y][0];
+    console.log(tableArray[0]);
+    console.log(tableArray[0]);
+    //cell1.innerHTML = tableArray[y][1][0];
+    //cell2.innerHTML = tableArray[y][0];
 
   }
 }
