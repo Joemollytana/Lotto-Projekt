@@ -119,7 +119,7 @@ h2 {
 footer {
   background-color: #db0202;
   /*bottom: 0;*/
-  position: relative;
+  /*position: relative;*/
   color: white;
   text-align: center;
   margin-top: 70px;
@@ -337,6 +337,10 @@ li {
   margin-bottom: 40px;
 }
 #alterscheck_footer {
+  position: absolute;
+  bottom: 0;
+}
+#auswertung_footer {
   position: absolute;
   bottom: 0;
 }
