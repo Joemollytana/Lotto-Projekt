@@ -459,9 +459,9 @@ function createTable(){
             <p id="yourCountry">Kein Land</p>
             <p id="yourHits"></p>
             <p id="yourMisses"></p>
-            <br>
+            <br><br>
             <p id="yourLotto"></p>
-            <br>
+            <br><br>
             <p id="yourWon"></p>
 
         </div>
