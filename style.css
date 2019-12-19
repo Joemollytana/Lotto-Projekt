@@ -425,6 +425,11 @@ li {
 
 /*############################################################################*/
 
+h3 {
+  font-size: 1.7em;
+  margin-bottom: 40px;
+}
+
 footer a {
   color: white;
   text-decoration: none;
@@ -452,4 +457,14 @@ footer a {
   text-align: center;
   padding-top: 6px;
   padding-bottom: 6px;
+}
+
+#main p {
+  font-size: 18px;
+}
+#Daten p {
+  margin-bottom: 20px;
+}
+#Daten #yourWon {
+  font-size: 24px;
 }

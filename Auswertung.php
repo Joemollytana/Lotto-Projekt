@@ -480,9 +480,10 @@ function createTable(){
           </table>
             <h3>Statistische Auswertung</h3>
             <button class="prettyButton" onclick="exportTableToExcel('excelTable', 'lotto_auswertung')">Statistische Auswertung in Excel</button>
-
+            <br><br>
+            <p>Ziehungen mit den höhsten Treffern</p>
             <table id=Tabelle>
-              <tr>Ziehungen mit den höhsten Treffern
+              <tr>
                 <th>Ziehungen</th>
                 <th>Treffer</th>
               </tr>
