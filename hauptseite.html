@@ -9,7 +9,7 @@
 </head>
 
 
-<!--<br>-->
+
 <script src="script.js"></script>
 
 <body id="mainpage" onload="startUp()">
@@ -36,17 +36,6 @@
     </div>
     <br>
 
-    <!-- Anstelle einzelner Divs könnten mehrere Spans verwendet werden um Redundanten Text zu Kürzen, e.g.:
-        <div class"numbers">
-            <h2> Trage eine Zahl ein von <span id="de"> 0 bis 49 <span> <span id="dk"> 0 bis 36 <span>
-        <div>
-
-        Oder mit JS:
-            Span.innerhtml nach function setzen
-
-
-    Außerdem: Anzahl verfügbarer Zahlen
-    -->
 
     <div id="de" class="numbers">
       <h2>Trage eine Zahl ein von 0 bis 49</h2>
@@ -80,32 +69,26 @@
       </div>
     </div>
     <br>
-    <!--<div>-->
 
-    <!-- 1 Land und Anzahl als Input Type Hidden?
-         2 Name und ID angleichen
-    -->
 
     <h2>Deine Daten: </h2>
     <form method="GET" action="auswertung.php" id="choice">
-      <!--<div id="form_box1">-->
+
 
 
           <li>Finale Zahlen: <input type="text" id="finalNumbers" name="numbers" value="" required>
           </li>
 
-      <!--</div>-->
       <br>
 
 
-      <!--</div>-->
       <div id="Senden">
         <input type="submit" id="Senden" value="Bestätigen und Senden">
         <input type="hidden" id="finalCountry" name="country" value="" readonly required>
         <input type="hidden" id="finalDraw" name="draws" value="" required >
       </div>
     </form>
-    <!--</div>-->
+
   </main>
   <footer>
     <div>

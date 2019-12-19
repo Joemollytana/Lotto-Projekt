@@ -3,7 +3,7 @@ var iFrame_noch_nicht_geladen = true;
 
 
 
-//
+// prüfe monat
 function checkInputMonth() {
   var inputMonthFull = document.getElementById("month");
   var inputYearFull = document.getElementById("year");
@@ -20,7 +20,7 @@ function checkInputMonth() {
     document.getElementById("age").disabled = true;
   }
 }
-//
+// prüfe jahr
 function checkInputYear() {
   var inputMonthFull = document.getElementById("month");
   var inputYearFull = document.getElementById("year");
@@ -37,7 +37,7 @@ function checkInputYear() {
       document.getElementById("age").disabled = true;
   }
 }
-//
+// prüfe alter
 function checkAge() {
 
   var d = new Date();
@@ -68,7 +68,7 @@ function checkAge() {
 
   }
 }
-//
+// wenn gestartet wird, stelle content dar
 function startUp() {
   // Get the container element
   var btnContainer = document.getElementById("buttons");

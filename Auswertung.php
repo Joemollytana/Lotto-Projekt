@@ -324,6 +324,7 @@ function createSummary(){
   var returnedThrows = iterations;
   var returnCountry = country;
   var lottoZug = results[0]
+  // check countryname
   if (returnCountry == "de") {
     returnCountry = "Deutschland";
   } else if (returnCountry == "be") {
@@ -340,12 +341,12 @@ function createSummary(){
   document.getElementById("yourNumbers").innerHTML= "Deine Lottozahlen sind: " + "<b>" + returnedPicks + "</b>";
   document.getElementById("yourThrows").innerHTML= "Deine Wurfanzahl ist: " + "<b>" + returnedThrows + "</b>";
   document.getElementById("yourCountry").innerHTML= "Dein ausgewähltes Land ist: " + "<b>" + returnCountry + "</b>";
-
+  // if throw number more than 1, count hits and misses together
   if (returnedThrows > 1){
     var numberHits = hits.reduce((a, b) => a + b, 0);
     var numberMisses = misses.reduce((a, b) => a + b, 0);
 
-
+    // check if won
     if (victoryState.includes(1)) {
 
       var win = victoryState.indexOf(1) + 1;
@@ -358,6 +359,7 @@ function createSummary(){
       document.getElementById("yourHits").innerHTML = "Deine Anzahl Treffer ingesammt ist: <b>" + numberHits + "</b>";
       document.getElementById("yourMisses").innerHTML = "Deine Anzahl Misserfolge ingesammt ist: <b>" + numberMisses + "</b>";
     }
+  // if throw number one or none give answer
   }else if (victoryState[0] == 0) {
       var state = "leider <b>verloren</b>. Versuch es doch nochmal!";
       document.getElementById("yourLotto").innerHTML = "Die gezogenen Zahlen sind: <b>" + lottoZug +"</b>"
@@ -374,23 +376,32 @@ function createSummary(){
 ////////////////////////////////////////////////////////////////////////////////
 function createTable(){
   var tableArray = [];
-  var tableResults = results;
-  var tableHits = hits;
+  var tableResults = results; //copy
+  var tableHits = hits; // copy
   var tableLength;
   var i;
   var y;
   var table = document.getElementById("Tabelle");
+  var totalRowCount = table.rows.length;
 
+  // if rows allready generated, delete rows
+  if (totalRowCount > 1) {
+    for (i=totalRowCount; i !== 1; i--) {
+      table.deleteRow(1);
+    }
+  }
+
+  // combining tableResults with tableHits and sorting after hits
   for (i=0, tableLength = tableResults.length; i<tableLength ; i++){
     var arrayResults = tableResults[i];
     var arrayHits = tableHits[i];
     var arrayArray = [arrayHits, arrayResults];
 
-    tableArray.push(arrayArray); // [ [arrayhits, [arrayResult]], [array]
+    tableArray.push(arrayArray); // [ [arrayhits, [arrayResult]], ...]
   }
   tableArray = tableArray.sort().reverse();
 
-
+  // create table
   var condition
   if (tableArray.length < 50) {
     condition = tableArray.length;
@@ -468,14 +479,16 @@ function createTable(){
 
           </table>
             <h3>Statistische Auswertung</h3>
+            <button class="prettyButton" onclick="exportTableToExcel('excelTable', 'lotto_auswertung')">Statistische Auswertung in Excel</button>
+
             <table id=Tabelle>
-              <tr>
+              <tr>Ziehungen mit den höhsten Treffern
                 <th>Ziehungen</th>
                 <th>Treffer</th>
               </tr>
             </table>
 
-            <button class="prettyButton" onclick="exportTableToExcel('excelTable', 'lotto_auswertung')">Statistische Auswertung in Excel</button>
+
 
         </div>
 
