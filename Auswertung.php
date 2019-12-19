@@ -390,7 +390,7 @@ function createTable(){
   }
   tableArray = tableArray.sort().reverse();
 
-  console.log(tableArray);
+  
   var condition
   if (tableArray.length < 50) {
     condition = tableArray.length;
@@ -401,10 +401,8 @@ function createTable(){
     var row = table.insertRow(y+1)
     var cell1 = row.insertCell(0);
     var cell2 = row.insertCell(1);
-    console.log(tableArray[0]);
-    console.log(tableArray[0]);
-    //cell1.innerHTML = tableArray[y][1][0];
-    //cell2.innerHTML = tableArray[y][0];
+    cell1.innerHTML = tableArray[y][1];
+    cell2.innerHTML = tableArray[y][0];
 
   }
 }
