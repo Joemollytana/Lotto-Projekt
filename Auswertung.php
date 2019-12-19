@@ -518,7 +518,7 @@ function createTable(){
 
     </main>
 </body>
-<footer>
+<footer id="auswertung_footer">
     <div>
         Trotz sorgfältiger inhaltlicher Kontrolle übernimmt die Lotto-DHBW-VS keine Haftung für die Inhalte
         externer Links. Für den Inhalt der verlinkten Seiten sind ausschließlich deren Betreiber verantwortlich.
