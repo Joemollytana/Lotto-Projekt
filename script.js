@@ -52,8 +52,8 @@ function checkAge() {
   if (year - inputYear > 18) {
     window.location.href = "hauptseite.html"
 
-  } else if (year - inputYear == 17) {
-    if (month > inputMonth) {
+  } else if (year - inputYear == 18) {
+    if (month >= inputMonth) {
       window.location.href = "hauptseite.html"
 
     } else {
